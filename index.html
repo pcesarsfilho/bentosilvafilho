@@ -116,10 +116,10 @@ section{scroll-margin-top:72px}
 
 /* Escritório */
 .office{display:grid;grid-template-columns:1fr 1.5fr;gap:56px;align-items:start}
-.office img{width:100%;max-width:440px;aspect-ratio:4/5;object-fit:cover;border-bottom:3px solid var(--gold);margin-top:10px}
+.office img{width:100%;max-width:440px;height:auto;border-bottom:3px solid var(--gold);margin-top:10px}
 .office .text{display:flex;flex-direction:column;gap:18px;color:#2E2E2E;max-width:62ch}
 .office .text p{margin:0}
-@media (max-width:760px){.office{grid-template-columns:1fr;gap:28px}}
+@media (max-width:760px){.office{grid-template-columns:1fr;gap:28px}.office img{max-width:100%}}
 
 /* Áreas */
 .areas{background:var(--white)}
@@ -137,18 +137,11 @@ section{scroll-margin-top:72px}
 @media (max-width:760px){.cta-band .btn{width:100%}}
 /* Advogados */
 .grid-team{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:40px;margin-top:40px}
-.person img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center top;border-bottom:3px solid var(--gold)}
+.person img{width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;object-position:center 15%;border-bottom:3px solid var(--gold)}
 .person h3{font-weight:600;font-size:1.7rem;color:var(--navy);margin-top:18px}
 .person .oab{margin:2px 0 0;font-size:.85rem;color:#4A4A4A}
 .person p{margin:12px 0 0;font-size:.95rem;color:var(--text)}
 .person .wa{display:inline-flex;align-items:center;gap:8px;margin-top:14px;font-size:.85rem;font-weight:600;color:var(--gold-ink);text-decoration:none;border-bottom:1px solid currentColor}
-
-/* Rotina */
-.routine{background:var(--white)}
-.routine .wide{width:100%;aspect-ratio:21/9;object-fit:cover;object-position:left 30%;margin-top:40px}
-.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:14px}
-.gallery img{width:100%;aspect-ratio:4/5;object-fit:cover}
-@media (max-width:760px){.routine .wide{aspect-ratio:4/3}.gallery{grid-template-columns:repeat(2,1fr);gap:10px}}
 
 /* Contato */
 .contact{background:var(--navy);color:var(--cream)}
@@ -199,7 +192,6 @@ section{scroll-margin-top:72px}
       <a href="#escritorio">O ESCRITÓRIO</a>
       <a href="#atuacao">ATUAÇÃO</a>
       <a href="#advogados">ADVOGADOS</a>
-      <a href="#rotina">ROTINA</a>
       <a href="#contato" class="cta">CONTATO</a>
     </nav>
   </div>
@@ -226,7 +218,7 @@ section{scroll-margin-top:72px}
     <div class="stack">
       <div class="eyebrow">O escritório</div>
       <h2>Cada caso conduzido <em>de perto, do início ao fim.</em></h2>
-      <img src="img/dupla.jpg" alt="Paulo César Silva Filho e Heloísa G. Bento Ferreira no escritório" width="900" height="1351" loading="lazy">
+      <img src="img/dupla.jpg" alt="Paulo César Silva Filho e Heloísa G. Bento Ferreira no escritório" width="1000" height="1501" loading="lazy">
     </div>
     <div class="text">
       <p>O Bento &amp; Silva Filho Advogados reúne a atuação de Paulo César Silva Filho e Heloísa G. Bento Ferreira, advogados formados pela PUC Minas, com escritório em Poços de Caldas-MG e inscrição na OAB de Minas Gerais e de São Paulo.</p>
@@ -270,35 +262,19 @@ section{scroll-margin-top:72px}
     </div>
     <div class="grid-team">
       <article class="person">
-        <img src="img/paulo.jpg" alt="Paulo César Silva Filho" width="900" height="1350" loading="lazy">
+        <img src="img/paulo.jpg" alt="Paulo César Silva Filho" width="1000" height="1333" loading="lazy">
         <h3>Dr. Paulo César Silva Filho</h3>
         <p class="oab">Advogado · OAB/MG 210.883</p>
         <p>Graduado em Direito pela PUC Minas, com pós-graduações em Advocacia Contenciosa Cível, Direito Processual Civil e Direito Público. Atua no Direito do Consumidor, Responsabilidade Civil, Sucessões, Contratos e Execuções. Preside a Comissão de Esportes e Lazer da 25ª Subseção da OAB/MG.</p>
         <a class="wa" href="https://wa.me/5535988056692" data-track="whatsapp_paulo">WhatsApp (35) 98805-6692</a>
       </article>
       <article class="person">
-        <img src="img/heloisa.jpg" alt="Heloísa G. Bento Ferreira" width="900" height="1350" loading="lazy">
+        <img src="img/heloisa.jpg" alt="Heloísa G. Bento Ferreira" width="1000" height="1500" loading="lazy">
         <h3>Dr.ª Heloísa G. Bento Ferreira</h3>
         <p class="oab">Advogada · OAB/MG 225.014 · OAB/SP 463.498</p>
         <p>Graduada em Direito pela PUC Minas, com pós-graduações em Direito e Processo do Trabalho, Direito Processual Civil e Direito Público. Responsável pelas áreas de Direito do Trabalho e Direito de Família no escritório. Secretária da OAB Jovem e Presidente da Comissão de Cidadania e Ação Social de São Sebastião da Grama-SP.</p>
         <a class="wa" href="https://wa.me/5519982684698" data-track="whatsapp_heloisa">WhatsApp (19) 98268-4698</a>
       </article>
-    </div>
-  </div>
-</section>
-
-<section id="rotina" class="section routine">
-  <div class="wrap">
-    <div class="stack">
-      <div class="eyebrow">Rotina</div>
-      <h2>No escritório e <em>na advocacia.</em></h2>
-    </div>
-    <img class="wide" src="img/dupla_horizontal.jpg" alt="Paulo e Heloísa no escritório" width="1100" height="733" loading="lazy">
-    <div class="gallery">
-      <img src="img/dupla_evento.jpg" alt="Paulo e Heloísa em evento da advocacia" width="800" height="1067" loading="lazy" style="object-position:center 30%">
-      <img src="img/heloisa_celular.jpg" alt="Heloísa G. Bento Ferreira" width="733" height="1100" loading="lazy" style="object-position:center 35%">
-      <img src="img/paulo_poltrona.jpg" alt="Paulo César Silva Filho" width="800" height="1067" loading="lazy" style="object-position:center 30%">
-      <img src="img/heloisa_sofa.jpg" alt="Heloísa G. Bento Ferreira" width="800" height="533" loading="lazy" style="object-position:56% center">
     </div>
   </div>
 </section>
