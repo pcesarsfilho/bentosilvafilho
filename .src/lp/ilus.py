@@ -76,3 +76,36 @@ INV=base(f'''
 <g stroke="{S}" stroke-width="3" stroke-linecap="round"><line x1="20" y1="166" x2="130" y2="166"/><line x1="20" y1="184" x2="110" y2="184"/></g>
 <circle cx="126" cy="204" r="18" fill="{G}"/><path d="M118 204 l6 6 l11 -13" stroke="{N}" stroke-width="4" fill="none" stroke-linecap="round"/></g>
 ''')
+HOL=base(f'''
+<rect x="20" y="20" width="440" height="360" rx="28" fill="{C}"/>
+<g transform="translate(52 96)"><rect x="0" y="40" width="150" height="190" rx="6" fill="{N}"/><path d="M-10 46 L75 0 L160 46Z" fill="{G}"/>
+<g fill="{C}"><rect x="18" y="66" width="26" height="26"/><rect x="62" y="66" width="26" height="26"/><rect x="106" y="66" width="26" height="26"/><rect x="18" y="110" width="26" height="26"/><rect x="62" y="110" width="26" height="26"/><rect x="106" y="110" width="26" height="26"/></g>
+<rect x="58" y="164" width="34" height="66" fill="{G}"/>
+<text x="75" y="-14" text-anchor="middle" style="{F};font-weight:600;font-size:12px;letter-spacing:2px" fill="{N}">HOLDING</text></g>
+<g transform="translate(336 138)"><circle r="72" fill="{W}" stroke="{N}" stroke-width="4"/>
+<path d="M0 0 L0 -74 A74 74 0 0 1 64 37 Z" fill="{G}"/><path d="M0 0 L64 37 A74 74 0 0 1 -64 37 Z" fill="{N}"/><path d="M0 0 L-64 37 A74 74 0 0 1 0 -74 Z" fill="{L}"/>
+<circle r="22" fill="{W}"/><text y="5" text-anchor="middle" style="{F};font-weight:600;font-size:12px" fill="{N}">%</text></g>
+<g transform="translate(278 246) scale(.8)"><path d="M70 0 L130 22 V64 C130 100 104 118 70 130 C36 118 10 100 10 64 V22 Z" fill="{N}"/><path d="M48 66 l16 16 l30 -34" stroke="{G}" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+''')
+ACI=base(f'''
+<rect x="20" y="20" width="440" height="360" rx="28" fill="{C}"/>
+<line x1="40" y1="300" x2="440" y2="300" stroke="{S}" stroke-width="3" stroke-dasharray="18 14"/>
+<g transform="translate(46 196)"><path d="M10 60 L24 24 Q30 10 46 10 L110 10 Q124 10 132 22 L152 52 L170 58 Q178 62 178 72 L178 86 L0 86 L0 70 Q0 62 10 60Z" fill="{N}"/>
+<path d="M36 24 L104 24 L120 50 L28 50Z" fill="{L}"/><circle cx="40" cy="88" r="18" fill="{S}"/><circle cx="40" cy="88" r="8" fill="{C}"/><circle cx="140" cy="88" r="18" fill="{S}"/><circle cx="140" cy="88" r="8" fill="{C}"/></g>
+<g transform="translate(434 196) scale(-1 1)"><path d="M10 60 L24 24 Q30 10 46 10 L110 10 Q124 10 132 22 L152 52 L170 58 Q178 62 178 72 L178 86 L0 86 L0 70 Q0 62 10 60Z" fill="{G}"/>
+<path d="M36 24 L104 24 L120 50 L28 50Z" fill="{L}"/><circle cx="40" cy="88" r="18" fill="{S}"/><circle cx="40" cy="88" r="8" fill="{C}"/><circle cx="140" cy="88" r="18" fill="{S}"/><circle cx="140" cy="88" r="8" fill="{C}"/></g>
+<path d="M240 206 l10 -26 l6 20 l18 -14 l-8 22 l22 2 l-22 10 l12 18 l-20 -8 l-4 22 l-8 -20 l-14 14 l2 -20 l-20 -2 l18 -10z" fill="{R}"/>
+<g transform="translate(176 46)"><rect width="128" height="118" rx="10" fill="{W}" stroke="{N}" stroke-width="4"/><rect x="40" y="-10" width="48" height="20" rx="6" fill="{G}"/>
+<text x="64" y="44" text-anchor="middle" style="{F};font-weight:600;font-size:13px;letter-spacing:2px" fill="{N}">B.O.</text>
+<g stroke="{S}" stroke-width="4" stroke-linecap="round"><line x1="22" y1="66" x2="106" y2="66"/><line x1="22" y1="84" x2="96" y2="84"/><line x1="22" y1="102" x2="80" y2="102"/></g></g>
+''')
+GOL=base(f'''
+<rect x="20" y="20" width="440" height="360" rx="28" fill="{C}"/>
+<g transform="translate(70 52)"><rect width="160" height="296" rx="26" fill="{N}"/><rect x="12" y="34" width="136" height="228" rx="10" fill="{W}"/><rect x="60" y="14" width="40" height="6" rx="3" fill="{S}"/>
+<text x="80" y="66" text-anchor="middle" style="{F};font-weight:600;font-size:12px;letter-spacing:1.5px" fill="{N}">TRANSFERÊNCIA</text>
+<text x="80" y="104" text-anchor="middle" style="{F};font-weight:600;font-size:22px" fill="{N}">R$ 4.980</text>
+<text x="80" y="128" text-anchor="middle" style="{F};font-size:10px" fill="{S}">conta desconhecida</text>
+<rect x="28" y="196" width="104" height="36" rx="18" fill="{R}"/><text x="80" y="219" text-anchor="middle" style="{F};font-weight:600;font-size:12px;letter-spacing:1px" fill="{W}">NÃO FUI EU</text></g>
+<g transform="translate(270 92)"><path d="M80 0 L160 140 L0 140Z" fill="{G}"/><rect x="74" y="44" width="12" height="54" rx="6" fill="{N}"/><circle cx="80" cy="116" r="8" fill="{N}"/></g>
+<g transform="translate(262 262) rotate(-8)"><rect width="168" height="96" rx="12" fill="{N}"/><rect y="20" width="168" height="18" fill="{GD}"/><rect x="16" y="56" width="40" height="26" rx="5" fill="{G}"/><g stroke="{C}" stroke-width="4" stroke-linecap="round"><line x1="72" y1="64" x2="150" y2="64"/><line x1="72" y1="78" x2="124" y2="78"/></g></g>
+''')

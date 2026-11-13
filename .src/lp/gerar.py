@@ -25,7 +25,7 @@ def page(p):
     comp_html=''
     if p.get('comp'):
         cards=''.join(f'<div class="cmp-c{" alt" if k else ""}"><h3>{e(t)}</h3><ul>'+''.join(f'<li>{CHK}<span>{e(x)}</span></li>' for x in it)+'</ul></div>' for k,(t,it) in enumerate(p['comp']))
-        comp_html=f'<section class="sec"><div class="wrap"><div class="eyebrow dk">Comparativo</div><h2>Inventário em cartório ou na Justiça</h2><div class="cmp">{cards}</div><p class="cmp-note">A escolha depende dos herdeiros, dos bens e dos documentos. Essa análise é a primeira etapa do nosso atendimento.</p></div></section>'
+        comp_html=f'<section class="sec"><div class="wrap"><div class="eyebrow dk">Comparativo</div><h2>{e(p.get('comp_t','Inventário em cartório ou na Justiça'))}</h2><div class="cmp">{cards}</div><p class="cmp-note">{e(p.get('comp_note','A escolha depende dos herdeiros, dos bens e dos documentos. Essa análise é a primeira etapa do nosso atendimento.'))}</p></div></section>'
     chips=''.join(f'<li>{CHK}{e(c)}</li>' for c in p['chips'])
     url=BASE+p['slug']+'/'
     adv,oab=p['adv']
@@ -34,7 +34,7 @@ def page(p):
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>{e(p['title'])}</title>
+<title>{e(p['title'])} | Poços de Caldas e todo o Brasil</title>
 <meta name="description" content="{e(p['desc'])}">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#0E1B33">
@@ -49,12 +49,13 @@ def page(p):
 <script async src="https://www.googletagmanager.com/gtag/js?id=GTAG_ID"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag('js',new Date());gtag('config','GTAG_ID');</script>
 -->
+<script type="application/ld+json">{json.dumps({"@context":"https://schema.org","@type":"LegalService","name":"Bento & Silva Filho Advogados","url":url,"image":BASE+"img/og.jpg","telephone":"+"+p['wa'],"address":{"@type":"PostalAddress","streetAddress":"Av. Dr. David Benedito Ottoni, 645, sala 02, Jardim dos Estados","addressLocality":"Poços de Caldas","addressRegion":"MG","postalCode":"37701-069","addressCountry":"BR"},"areaServed":[{"@type":"City","name":"Poços de Caldas"},{"@type":"State","name":"Minas Gerais"},{"@type":"State","name":"São Paulo"},{"@type":"Country","name":"Brasil"}],"description":p['desc']},ensure_ascii=False)}</script>
 <style>{CSS}</style>
 </head>
 <body>
 <header class="top"><div class="wrap top-in">
   <a class="mark" href="../" aria-label="Página inicial"><img src="../img/monograma-128.png" alt="" width="40" height="40"></a>
-  <span class="top-tag">Atendimento on-line · em todo o Brasil</span>
+  <span class="top-tag">Poços de Caldas-MG · atendimento em todo o Brasil</span>
   {btn('wa-sm','WhatsApp','whatsapp_topo')}
 </div></header>
 
@@ -103,6 +104,11 @@ def page(p):
   <h2>Envie sua situação <em>e receba uma análise.</em></h2>
   <p>Atendimento ágil e personalizado, pelo WhatsApp, para todo o Brasil.</p>
   {btn('wa-lg pulse',p['cta'],'whatsapp_final')}
+</div></section>
+
+<section class="local"><div class="wrap local-in">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z" fill="currentColor"/></svg>
+  <p><b>Escritório em Poços de Caldas-MG.</b> Atendimento presencial em Poços de Caldas e região (Sul de Minas e divisa com São Paulo) e <b>on-line para clientes de todo o Brasil</b>, por WhatsApp e videochamada.</p>
 </div></section>
 
 <footer class="foot"><div class="wrap">

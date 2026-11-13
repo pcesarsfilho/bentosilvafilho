@@ -41,6 +41,7 @@ h1{font-size:clamp(2.1rem,6vw,3rem);line-height:1.1}h1 em{font-style:italic;colo
 .artigo{max-width:720px;margin:0 auto;padding:56px 20px 72px}
 .artigo h2{font-size:1.7rem;margin:34px 0 8px}.artigo p{margin:0 0 16px;color:#2E2E2E;text-align:justify;hyphens:auto}
 .nota{margin-top:36px;padding:18px 20px;border-left:3px solid var(--gold);background:var(--white);font-size:.85rem;color:var(--text)}
+.guia{display:block;margin-top:36px;padding:24px 26px;background:var(--navy);color:var(--cream);text-decoration:none;border-left:4px solid var(--gold)}.guia-t{display:block;font-family:var(--display);font-size:1.6rem;color:#FBF6EC;line-height:1.2}.guia-d{display:block;margin-top:6px;font-size:.95rem;color:var(--muted)}.guia-l{display:inline-block;margin-top:12px;font-size:12px;font-weight:600;letter-spacing:.16em;color:var(--gold)}
 .acoes{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 22px;text-decoration:none;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;border:1px solid var(--gold);color:var(--navy)}
 .btn-navy{background:var(--navy);color:var(--gold)}.btn svg{width:18px;height:18px}
@@ -108,6 +109,14 @@ def corpo_html(linhas):
     return '\n'.join(out)
 
 
+LP_LINK = {
+    'inventario-em-cartorio': ('inventario/', 'Precisa fazer um inventário?', 'Veja como funciona o atendimento, do levantamento dos documentos à partilha, em cartório ou na Justiça.'),
+    'negativacao-indevida-o-que-fazer': ('nome-negativado/', 'Seu nome foi negativado indevidamente?', 'Veja quando cabe a retirada do registro e a indenização, e envie seu caso.'),
+    'cobranca-indevida-devolucao-em-dobro': ('nome-negativado/', 'A cobrança indevida virou negativação?', 'Veja o que fazer quando o seu nome é incluído no Serasa ou no SPC sem motivo.'),
+    'distrato-imovel-na-planta': ('compra-de-imovel/', 'Vai comprar ou já comprou um imóvel?', 'Veja como funciona a análise jurídica da compra, do contrato ao registro.'),
+    'decimo-terceiro-salario-prazos': ('direitos-trabalhistas/', 'Tem dúvidas sobre os seus direitos trabalhistas?', 'Rescisão, horas extras, FGTS, justa causa e outras questões: veja como funciona o atendimento.'),
+    'golpe-do-falso-advogado': ('golpe-bancario/', 'Caiu em golpe ou teve transferências que não fez?', 'Veja quando o banco responde pela fraude e o que fazer agora.'),
+}
 os.makedirs(os.path.join(REPO, 'artigos'), exist_ok=True)
 for a in arts:
     noticia = a.get('tipo') == 'noticia'
@@ -119,6 +128,10 @@ for a in arts:
     if a.get('imagens'):
         galeria = '<div class="galeria">' + ''.join(
             f'<a href="../{i["src"]}" target="_blank" rel="noopener"><img src="../{i["src"]}" alt="{html.escape(i["alt"])}" loading="lazy"></a>' for i in a['imagens']) + '</div>'
+    guia = ''
+    if a['slug'] in LP_LINK:
+        href, t1, t2 = LP_LINK[a['slug']]
+        guia = f'<a class="guia" href="../{href}"><span class="guia-t">{html.escape(t1)}</span><span class="guia-d">{html.escape(t2)}</span><span class="guia-l">VER COMO FUNCIONA →</span></a>'
     nota = ('Publicado também na página do escritório no LinkedIn.' if noticia else
             'Conteúdo de caráter exclusivamente informativo, que não substitui a análise individual de cada situação. Publicado também na página do escritório no LinkedIn.')
     body = f"""<section class="head"><div class="wrap">
@@ -129,6 +142,7 @@ for a in arts:
 <article class="artigo">
 {corpo_html(a['corpo'])}
 {galeria}
+{guia}
 <div class="nota">{nota}</div>
 <div class="acoes">
 <a class="btn btn-navy" href="{LINKEDIN}" target="_blank" rel="noopener">{LI_SVG} Seguir no LinkedIn</a>
