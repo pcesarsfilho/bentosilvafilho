@@ -63,8 +63,7 @@ def page(p):
 </head>
 <body>
 <header class="top"><div class="wrap top-in">
-  <a class="mark" href="../" aria-label="Página inicial"><img src="../img/monograma-128.png" alt="" width="40" height="40"></a>
-  <span class="top-tag">Poços de Caldas-MG · atendimento em todo o Brasil</span>
+  <a class="brand" href="../" aria-label="Bento & Silva Filho Advogados, página inicial"><img src="../img/monograma-128.png" alt="" width="42" height="42"><span class="brand-tx"><span class="brand-n">BENTO <i>&amp;</i> SILVA FILHO</span><span class="brand-s">ADVOGADOS</span></span></a>
   {btn('wa-sm','WhatsApp','whatsapp_topo')}
 </div></header>
 
