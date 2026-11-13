@@ -18,5 +18,6 @@ body{width:1920px;height:1080px;background:#0E1B33;color:#F3EBDD;font-family:MS;
 h1{font-family:CG;font-weight:500;font-size:104px;line-height:1.08}h1 em{color:#C9A55A}
 .f{position:absolute;left:150px;bottom:90px;display:flex;align-items:center;gap:24px;font-size:26px;letter-spacing:.3em}.f img{width:84px}</style></head>
 <body><img class=wm src="file://${mono}"><div class=c><div class=k>${esc(a.area)}</div><div class=r></div><h1>${t}</h1></div><div class=f><img src="file://${mono}">BENTO &amp; SILVA FILHO ADVOGADOS</div></body></html>`;
- await p.setContent(h);await p.waitForTimeout(600);await p.screenshot({path:path.join(out,'capa-'+a.slug+'.png')});}
+ const tmp=path.join(path.resolve(out),'_tmp.html');fs.writeFileSync(tmp,h);await p.goto('file://'+tmp);await p.waitForTimeout(600);await p.screenshot({path:path.join(out,'capa-'+a.slug+'.png')});}
+try{fs.unlinkSync(path.join(path.resolve(out),'_tmp.html'))}catch(e){}
 await b.close();})();
