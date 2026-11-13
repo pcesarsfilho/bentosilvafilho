@@ -214,6 +214,7 @@ section{scroll-margin-top:72px}
 .post .meta{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-ink)}
 .post h3{font-size:1.45rem;line-height:1.2;color:var(--navy);margin-top:8px}
 .post p{margin:8px 0 0;font-size:.9rem;color:var(--text)}
+.post img{width:calc(100% + 44px);margin:-22px -22px 16px;aspect-ratio:16/10;object-fit:cover;display:block}
 
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 </style>
@@ -234,7 +235,7 @@ section{scroll-margin-top:72px}
       <a href="#escritorio">O ESCRITÓRIO</a>
       <a href="#atuacao">ATUAÇÃO</a>
       <a href="#advogados">ADVOGADOS</a>
-      <a href="artigos.html">ARTIGOS</a>
+      <a href="artigos.html">ARTIGOS E NOTÍCIAS</a>
       <a href="#contato" class="cta">CONTATO</a>
       <a href="https://www.linkedin.com/company/bentosilvafilhoadv/" class="nav-li" target="_blank" rel="noopener" aria-label="LinkedIn do escritório"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1-.02-5zM3 9.75h4V21H3zM9.5 9.75h3.8v1.6h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.65 4.77 6.1V21h-4v-4.9c0-1.17-.02-2.68-1.63-2.68-1.64 0-1.89 1.28-1.89 2.6V21h-4z"/></svg><span>LINKEDIN</span></a>
     </nav>
@@ -355,10 +356,10 @@ section{scroll-margin-top:72px}
   <div class="wrap">
     <div class="rv-top">
       <div class="stack">
-        <div class="eyebrow">Artigos</div>
+        <div class="eyebrow">Artigos e notícias</div>
         <h2>Informação jurídica <em>em linguagem clara</em></h2>
       </div>
-      <a class="btn btn-line" style="color:var(--gold-ink)" href="artigos.html">Todos os artigos</a>
+      <a class="btn btn-line" style="color:var(--gold-ink)" href="artigos.html">Ver todos</a>
     </div>
     <div class="posts" id="posts"></div>
   </div>
@@ -391,7 +392,7 @@ section{scroll-margin-top:72px}
 <footer class="site-footer">
   <div class="wrap">
     <p>Bento &amp; Silva Filho Advogados · Av. Dr. David Benedito Ottoni, 645, sala 02 · Jardim dos Estados · Poços de Caldas-MG</p>
-    <p><a href="politica-de-privacidade.html">Política de privacidade</a> · <a href="https://www.instagram.com/bentosilvafilhoadv/" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.facebook.com/bentosilvafilhoadv" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.linkedin.com/company/bentosilvafilhoadv/" target="_blank" rel="noopener">LinkedIn</a> · <a href="artigos.html">Artigos</a></p>
+    <p><a href="politica-de-privacidade.html">Política de privacidade</a> · <a href="https://www.instagram.com/bentosilvafilhoadv/" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.facebook.com/bentosilvafilhoadv" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.linkedin.com/company/bentosilvafilhoadv/" target="_blank" rel="noopener">LinkedIn</a> · <a href="artigos.html">Artigos e notícias</a></p>
   </div>
 </footer>
 
@@ -440,7 +441,7 @@ section{scroll-margin-top:72px}
     a=a.filter(function(x){return x.data<=h;}).sort(function(x,y){return x.data<y.data?1:-1;}).slice(0,3);
     var el=document.getElementById('posts');
     if(!a.length){document.getElementById('artigos').style.display='none';return;}
-    el.innerHTML=a.map(function(x){var p=x.data.split('-');return '<a class="post" href="artigos/'+x.slug+'.html"><div class="meta">'+(+p[2])+' de '+M[+p[1]-1]+' de '+p[0]+'</div><h3>'+esc(x.titulo)+'</h3><p>'+esc(x.resumo)+'</p></a>';}).join('');
+    el.innerHTML=a.map(function(x){var p=x.data.split('-');return '<a class="post" href="artigos/'+x.slug+'.html">'+(x.capa?'<img src="'+x.capa+'" alt="" loading="lazy">':'')+'<div class="meta">'+(x.tipo==='noticia'?'Notícia · ':'')+(+p[2])+' de '+M[+p[1]-1]+' de '+p[0]+'</div><h3>'+esc(x.titulo)+'</h3><p>'+esc(x.resumo)+'</p></a>';}).join('');
   }).catch(function(){document.getElementById('artigos').style.display='none';});
 })();
 </script>

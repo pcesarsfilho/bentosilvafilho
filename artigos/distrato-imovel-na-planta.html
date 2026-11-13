@@ -49,13 +49,19 @@ h1{font-size:clamp(2.1rem,6vw,3rem);line-height:1.1}h1 em{font-style:italic;colo
 .site-footer{background:var(--navy-deep);color:#A9A293;font-size:.8rem}.site-footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 24px;padding:28px 20px}
 .site-footer a{color:var(--gold);text-decoration:none}.site-footer p{margin:0}
 .vazio{padding:40px 0;color:var(--text)}
+.card.com-capa{display:grid;grid-template-columns:240px 1fr;gap:24px;align-items:start}.card.com-capa img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+@media(max-width:640px){.card.com-capa{grid-template-columns:1fr}}
+.tag{display:inline-block;background:var(--navy);color:var(--gold);padding:2px 8px;margin-right:8px;letter-spacing:.14em}
+.galeria{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin:28px 0 8px}
+.galeria a{display:block;overflow:hidden;background:var(--navy)}.galeria img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;transition:transform .3s}
+.galeria a:hover img{transform:scale(1.04)}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 </style>
 </head>
 <body>
 <header class="site-header"><div class="wrap">
 <a class="brand" href="../index.html" aria-label="Bento & Silva Filho Advogados, início"><img src="../img/monograma-128.png" alt="" width="44" height="44"><span>BENTO <em>&amp;</em> SILVA FILHO</span></a>
-<a class="back" href="../artigos.html">ARTIGOS</a>
+<a class="back" href="../artigos.html">ARTIGOS E NOTÍCIAS</a>
 </div></header>
 <main>
 <section class="head"><div class="wrap">
@@ -75,10 +81,11 @@ h1{font-size:clamp(2.1rem,6vw,3rem);line-height:1.1}h1 em{font-style:italic;colo
 <h2>Pontos de atenção</h2>
 <p>Antes de pedir o distrato, vale reler o contrato, em especial o quadro-resumo, que deve informar de forma clara as consequências do desfazimento, e reunir os comprovantes de todos os pagamentos realizados. Também é importante verificar se houve atraso da obra ou descumprimento por parte da incorporadora, pois, nessas hipóteses, a lógica da devolução é diferente e pode ser mais favorável ao comprador.</p>
 <p>Cada contrato tem particularidades, como a data de assinatura, o regime do empreendimento e o andamento da obra, que influenciam o cálculo do valor a ser devolvido.</p>
+
 <div class="nota">Conteúdo de caráter exclusivamente informativo, que não substitui a análise individual de cada situação. Publicado também na página do escritório no LinkedIn.</div>
 <div class="acoes">
 <a class="btn btn-navy" href="https://www.linkedin.com/company/bentosilvafilhoadv/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1-.02-5zM3 9.75h4V21H3zM9.5 9.75h3.8v1.6h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.65 4.77 6.1V21h-4v-4.9c0-1.17-.02-2.68-1.63-2.68-1.64 0-1.89 1.28-1.89 2.6V21h-4z"/></svg> Seguir no LinkedIn</a>
-<a class="btn" href="../artigos.html">Todos os artigos</a>
+<a class="btn" href="../artigos.html">Artigos e notícias</a>
 </div>
 </article>
 </main>

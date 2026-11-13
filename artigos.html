@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Artigos | Bento &amp; Silva Filho Advogados</title>
-<meta name="description" content="Artigos jurídicos do escritório Bento &amp; Silva Filho Advogados sobre direitos do cidadão e do consumidor.">
+<title>Artigos e notícias | Bento &amp; Silva Filho Advogados</title>
+<meta name="description" content="Artigos jurídicos e notícias do escritório Bento &amp; Silva Filho Advogados.">
 <meta name="theme-color" content="#0E1B33">
 <link rel="canonical" href="https://pcesarsfilho.github.io/bentosilvafilho/artigos.html">
 <link rel="icon" type="image/png" href="favicon.png">
 <meta property="og:type" content="article">
 <meta property="og:locale" content="pt_BR">
-<meta property="og:title" content="Artigos | Bento &amp; Silva Filho Advogados">
-<meta property="og:description" content="Artigos jurídicos do escritório Bento &amp; Silva Filho Advogados sobre direitos do cidadão e do consumidor.">
+<meta property="og:title" content="Artigos e notícias | Bento &amp; Silva Filho Advogados">
+<meta property="og:description" content="Artigos jurídicos e notícias do escritório Bento &amp; Silva Filho Advogados.">
 <meta property="og:url" content="https://pcesarsfilho.github.io/bentosilvafilho/artigos.html">
 <meta property="og:image" content="https://pcesarsfilho.github.io/bentosilvafilho/img/og.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,22 +48,28 @@ h1{font-size:clamp(2.1rem,6vw,3rem);line-height:1.1}h1 em{font-style:italic;colo
 .site-footer{background:var(--navy-deep);color:#A9A293;font-size:.8rem}.site-footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 24px;padding:28px 20px}
 .site-footer a{color:var(--gold);text-decoration:none}.site-footer p{margin:0}
 .vazio{padding:40px 0;color:var(--text)}
+.card.com-capa{display:grid;grid-template-columns:240px 1fr;gap:24px;align-items:start}.card.com-capa img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+@media(max-width:640px){.card.com-capa{grid-template-columns:1fr}}
+.tag{display:inline-block;background:var(--navy);color:var(--gold);padding:2px 8px;margin-right:8px;letter-spacing:.14em}
+.galeria{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin:28px 0 8px}
+.galeria a{display:block;overflow:hidden;background:var(--navy)}.galeria img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;transition:transform .3s}
+.galeria a:hover img{transform:scale(1.04)}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 </style>
 </head>
 <body>
 <header class="site-header"><div class="wrap">
 <a class="brand" href="index.html" aria-label="Bento & Silva Filho Advogados, início"><img src="img/monograma-128.png" alt="" width="44" height="44"><span>BENTO <em>&amp;</em> SILVA FILHO</span></a>
-<a class="back" href="artigos.html">ARTIGOS</a>
+<a class="back" href="artigos.html">ARTIGOS E NOTÍCIAS</a>
 </div></header>
 <main>
 <section class="head"><div class="wrap">
-<div class="eyebrow">Artigos</div>
+<div class="eyebrow">Artigos e notícias</div>
 <h1 style="margin-top:14px">Informação jurídica <em>em linguagem clara</em></h1>
-<p>Artigos do escritório sobre os direitos do cidadão e do consumidor. Os mesmos conteúdos são publicados semanalmente na nossa página do LinkedIn.</p>
+<p>Artigos sobre os direitos do cidadão e do consumidor e notícias do escritório. Os mesmos conteúdos são publicados na nossa página do LinkedIn.</p>
 <div class="acoes"><a class="btn btn-navy" style="border-color:var(--gold)" href="https://www.linkedin.com/company/bentosilvafilhoadv/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1-.02-5zM3 9.75h4V21H3zM9.5 9.75h3.8v1.6h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.65 4.77 6.1V21h-4v-4.9c0-1.17-.02-2.68-1.63-2.68-1.64 0-1.89 1.28-1.89 2.6V21h-4z"/></svg> Seguir no LinkedIn</a></div>
 </div></section>
-<div class="wrap"><div class="lista" id="lista"><p class="vazio">Carregando artigos...</p></div></div>
+<div class="wrap"><div class="lista" id="lista"><p class="vazio">Carregando...</p></div></div>
 <script>
 (function(){
   var MESES=["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
@@ -73,9 +79,9 @@ h1{font-size:clamp(2.1rem,6vw,3rem);line-height:1.1}h1 em{font-style:italic;colo
   fetch('artigos/index.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(a){
     a=a.filter(function(x){return x.data<=h;}).sort(function(x,y){return x.data<y.data?1:-1;});
     var el=document.getElementById('lista');
-    if(!a.length){el.innerHTML='<p class="vazio">Em breve, novos artigos por aqui.</p>';return;}
-    el.innerHTML=a.map(function(x){return '<a class="card" href="artigos/'+x.slug+'.html"><div class="meta">'+esc(x.area)+' · '+ext(x.data)+'</div><h2>'+esc(x.titulo)+'</h2><p>'+esc(x.resumo)+'</p><span class="ler">LER ARTIGO</span></a>';}).join('');
-  }).catch(function(){document.getElementById('lista').innerHTML='<p class="vazio">Não foi possível carregar os artigos agora.</p>';});
+    if(!a.length){el.innerHTML='<p class="vazio">Em breve, novos conteúdos por aqui.</p>';return;}
+    el.innerHTML=a.map(function(x){var n=x.tipo==='noticia';var t='<div><div class="meta">'+(n?'<span class="tag">NOTÍCIA</span>':esc(x.area)+' · ')+ext(x.data)+'</div><h2>'+esc(x.titulo)+'</h2><p>'+esc(x.resumo)+'</p><span class="ler">'+(n?'LER NOTÍCIA':'LER ARTIGO')+'</span></div>';return '<a class="card'+(x.capa?' com-capa':'')+'" href="artigos/'+x.slug+'.html">'+(x.capa?'<img src="'+x.capa+'" alt="" loading="lazy">':'')+t+'</a>';}).join('');
+  }).catch(function(){document.getElementById('lista').innerHTML='<p class="vazio">Não foi possível carregar o conteúdo agora.</p>';});
 })();
 </script>
 </main>

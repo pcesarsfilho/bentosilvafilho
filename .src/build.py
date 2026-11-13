@@ -47,6 +47,12 @@ h1{font-size:clamp(2.1rem,6vw,3rem);line-height:1.1}h1 em{font-style:italic;colo
 .site-footer{background:var(--navy-deep);color:#A9A293;font-size:.8rem}.site-footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 24px;padding:28px 20px}
 .site-footer a{color:var(--gold);text-decoration:none}.site-footer p{margin:0}
 .vazio{padding:40px 0;color:var(--text)}
+.card.com-capa{display:grid;grid-template-columns:240px 1fr;gap:24px;align-items:start}.card.com-capa img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+@media(max-width:640px){.card.com-capa{grid-template-columns:1fr}}
+.tag{display:inline-block;background:var(--navy);color:var(--gold);padding:2px 8px;margin-right:8px;letter-spacing:.14em}
+.galeria{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin:28px 0 8px}
+.galeria a{display:block;overflow:hidden;background:var(--navy)}.galeria img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;transition:transform .3s}
+.galeria a:hover img{transform:scale(1.04)}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 """
 
@@ -78,7 +84,7 @@ def page(title, desc, url, body, prefix='', extra_head=''):
 <body>
 <header class="site-header"><div class="wrap">
 <a class="brand" href="{prefix}index.html" aria-label="Bento & Silva Filho Advogados, início"><img src="{prefix}img/monograma-128.png" alt="" width="44" height="44"><span>BENTO <em>&amp;</em> SILVA FILHO</span></a>
-<a class="back" href="{prefix}artigos.html">ARTIGOS</a>
+<a class="back" href="{prefix}artigos.html">ARTIGOS E NOTÍCIAS</a>
 </div></header>
 <main>
 {body}
@@ -104,10 +110,17 @@ def corpo_html(linhas):
 
 os.makedirs(os.path.join(REPO, 'artigos'), exist_ok=True)
 for a in arts:
+    noticia = a.get('tipo') == 'noticia'
     url = f"{BASE}artigos/{a['slug']}.html"
-    ld = json.dumps({"@context": "https://schema.org", "@type": "Article", "headline": a['titulo'], "datePublished": a['data'],
+    ld = json.dumps({"@context": "https://schema.org", "@type": "NewsArticle" if noticia else "Article", "headline": a['titulo'], "datePublished": a['data'],
                      "author": {"@type": "Organization", "name": "Bento & Silva Filho Advogados"},
                      "publisher": {"@type": "Organization", "name": "Bento & Silva Filho Advogados"}, "description": a['resumo']}, ensure_ascii=False)
+    galeria = ''
+    if a.get('imagens'):
+        galeria = '<div class="galeria">' + ''.join(
+            f'<a href="../{i["src"]}" target="_blank" rel="noopener"><img src="../{i["src"]}" alt="{html.escape(i["alt"])}" loading="lazy"></a>' for i in a['imagens']) + '</div>'
+    nota = ('Publicado também na página do escritório no LinkedIn.' if noticia else
+            'Conteúdo de caráter exclusivamente informativo, que não substitui a análise individual de cada situação. Publicado também na página do escritório no LinkedIn.')
     body = f"""<section class="head"><div class="wrap">
 <div class="eyebrow">{html.escape(a['area'])} · {data_ext(a['data'])}</div>
 <h1 style="margin-top:14px">{html.escape(a['titulo'])}</h1>
@@ -115,27 +128,30 @@ for a in arts:
 </div></section>
 <article class="artigo">
 {corpo_html(a['corpo'])}
-<div class="nota">Conteúdo de caráter exclusivamente informativo, que não substitui a análise individual de cada situação. Publicado também na página do escritório no LinkedIn.</div>
+{galeria}
+<div class="nota">{nota}</div>
 <div class="acoes">
 <a class="btn btn-navy" href="{LINKEDIN}" target="_blank" rel="noopener">{LI_SVG} Seguir no LinkedIn</a>
-<a class="btn" href="../artigos.html">Todos os artigos</a>
+<a class="btn" href="../artigos.html">Artigos e notícias</a>
 </div>
 </article>"""
-    open(os.path.join(REPO, 'artigos', a['slug'] + '.html'), 'w', encoding='utf-8').write(
-        page(a['titulo'] + ' | Bento & Silva Filho Advogados', a['resumo'], url, body, prefix='../',
-             extra_head=f'<script type="application/ld+json">{ld}</script>\n'))
+    doc = page(a['titulo'] + ' | Bento & Silva Filho Advogados', a['resumo'], url, body, prefix='../',
+               extra_head=f'<script type="application/ld+json">{ld}</script>\n')
+    if a.get('capa'):
+        doc = doc.replace(f'{BASE}img/og.jpg', BASE + a['capa'])
+    open(os.path.join(REPO, 'artigos', a['slug'] + '.html'), 'w', encoding='utf-8').write(doc)
 
 # índice publicado (o site mostra somente artigos com data de hoje ou anterior)
-idx = [{k: a[k] for k in ('slug', 'data', 'titulo', 'resumo', 'area')} for a in arts]
+idx = [{k: a[k] for k in ('slug', 'data', 'titulo', 'resumo', 'area', 'tipo', 'capa') if k in a} for a in arts]
 json.dump(idx, open(os.path.join(REPO, 'artigos', 'index.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 
 lista = f"""<section class="head"><div class="wrap">
-<div class="eyebrow">Artigos</div>
+<div class="eyebrow">Artigos e notícias</div>
 <h1 style="margin-top:14px">Informação jurídica <em>em linguagem clara</em></h1>
-<p>Artigos do escritório sobre os direitos do cidadão e do consumidor. Os mesmos conteúdos são publicados semanalmente na nossa página do LinkedIn.</p>
+<p>Artigos sobre os direitos do cidadão e do consumidor e notícias do escritório. Os mesmos conteúdos são publicados na nossa página do LinkedIn.</p>
 <div class="acoes"><a class="btn btn-navy" style="border-color:var(--gold)" href="{LINKEDIN}" target="_blank" rel="noopener">{LI_SVG} Seguir no LinkedIn</a></div>
 </div></section>
-<div class="wrap"><div class="lista" id="lista"><p class="vazio">Carregando artigos...</p></div></div>
+<div class="wrap"><div class="lista" id="lista"><p class="vazio">Carregando...</p></div></div>
 <script>
 (function(){{
   var MESES={json.dumps(MESES, ensure_ascii=False)};
@@ -145,12 +161,12 @@ lista = f"""<section class="head"><div class="wrap">
   fetch('artigos/index.json',{{cache:'no-store'}}).then(function(r){{return r.json();}}).then(function(a){{
     a=a.filter(function(x){{return x.data<=h;}}).sort(function(x,y){{return x.data<y.data?1:-1;}});
     var el=document.getElementById('lista');
-    if(!a.length){{el.innerHTML='<p class="vazio">Em breve, novos artigos por aqui.</p>';return;}}
-    el.innerHTML=a.map(function(x){{return '<a class="card" href="artigos/'+x.slug+'.html"><div class="meta">'+esc(x.area)+' · '+ext(x.data)+'</div><h2>'+esc(x.titulo)+'</h2><p>'+esc(x.resumo)+'</p><span class="ler">LER ARTIGO</span></a>';}}).join('');
-  }}).catch(function(){{document.getElementById('lista').innerHTML='<p class="vazio">Não foi possível carregar os artigos agora.</p>';}});
+    if(!a.length){{el.innerHTML='<p class="vazio">Em breve, novos conteúdos por aqui.</p>';return;}}
+    el.innerHTML=a.map(function(x){{var n=x.tipo==='noticia';var t='<div><div class="meta">'+(n?'<span class="tag">NOTÍCIA</span>':esc(x.area)+' · ')+ext(x.data)+'</div><h2>'+esc(x.titulo)+'</h2><p>'+esc(x.resumo)+'</p><span class="ler">'+(n?'LER NOTÍCIA':'LER ARTIGO')+'</span></div>';return '<a class="card'+(x.capa?' com-capa':'')+'" href="artigos/'+x.slug+'.html">'+(x.capa?'<img src="'+x.capa+'" alt="" loading="lazy">':'')+t+'</a>';}}).join('');
+  }}).catch(function(){{document.getElementById('lista').innerHTML='<p class="vazio">Não foi possível carregar o conteúdo agora.</p>';}});
 }})();
 </script>"""
 open(os.path.join(REPO, 'artigos.html'), 'w', encoding='utf-8').write(
-    page('Artigos | Bento & Silva Filho Advogados', 'Artigos jurídicos do escritório Bento & Silva Filho Advogados sobre direitos do cidadão e do consumidor.',
+    page('Artigos e notícias | Bento & Silva Filho Advogados', 'Artigos jurídicos e notícias do escritório Bento & Silva Filho Advogados.',
          BASE + 'artigos.html', lista, prefix=''))
-print(len(arts), 'artigos')
+print(len(arts), 'publicações')
