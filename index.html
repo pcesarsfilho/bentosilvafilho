@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Bento &amp; Silva Filho Advogados | Poços de Caldas-MG</title>
-<meta name="description" content="Escritório de advocacia em Poços de Caldas-MG. Direito do Consumidor, Civil, Família e Sucessões, Imobiliário e Condomínios e Direito do Trabalho. Atendimento presencial em Poços de Caldas-MG e on-line em todo o Brasil.">
+<meta name="description" content="Escritório de advocacia em Poços de Caldas-MG. Direito do Consumidor, Civil, Família, Sucessões e Holding, Imobiliário e Condomínios e Direito do Trabalho. Atendimento presencial em Poços de Caldas-MG e on-line em todo o Brasil.">
 <meta name="theme-color" content="#0E1B33">
 <link rel="canonical" href="https://pcesarsfilho.github.io/bentosilvafilho/">
 <link rel="icon" type="image/png" href="favicon.png">
@@ -42,7 +42,7 @@
     {"@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "09:00", "closes": "17:00"}
   ],
   "areaServed": [{"@type": "City", "name": "Poços de Caldas"}, {"@type": "Country", "name": "Brasil"}],
-  "sameAs": ["https://www.instagram.com/bentosilvafilhoadv/", "https://www.facebook.com/bentosilvafilhoadv"]
+  "sameAs": ["https://www.instagram.com/bentosilvafilhoadv/", "https://www.facebook.com/bentosilvafilhoadv", "https://www.linkedin.com/company/bentosilvafilhoadv/"]
 }
 </script>
 <!-- Google Analytics / Google Ads: quando tiver o ID (G-XXXX ou AW-XXXX), troque GTAG_ID abaixo e apague as duas linhas de comentário.
@@ -174,6 +174,36 @@ section{scroll-margin-top:72px}
 .fab-menu a{background:var(--white);color:var(--navy);text-decoration:none;font-size:.85rem;font-weight:600;padding:12px 16px;border-radius:24px;border:1px solid var(--gold);box-shadow:0 6px 18px rgba(14,27,51,.18);white-space:nowrap}
 .fab-menu a span{font-weight:400;color:#666;margin-left:6px}
 
+.nav-li{display:inline-flex;align-items:center;gap:8px}.nav-li svg{width:17px;height:17px}
+@media (min-width:861px){.nav-li span{display:none}.nav{gap:26px}}
+@media (max-width:1060px) and (min-width:861px){.nav{gap:18px;font-size:11px}}
+
+/* Depoimentos */
+.reviews{background:var(--white)}
+.rv-top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px}
+.rv-score{display:flex;align-items:center;gap:14px;font-size:.9rem;color:var(--text)}
+.rv-score b{font-family:var(--display);font-size:2.6rem;font-weight:600;color:var(--navy);line-height:1}
+.stars{color:var(--gold);letter-spacing:3px;font-size:18px}
+.rv-stage{position:relative;margin-top:40px;min-height:230px;border-top:2px solid var(--gold);padding-top:34px}
+.rv{margin:0;position:absolute;inset:34px 0 auto 0;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .6s,transform .6s,visibility .6s}
+.rv.on{position:relative;inset:auto;opacity:1;visibility:visible;transform:none}
+.rv blockquote{margin:12px 0 0;font-family:var(--display);font-size:clamp(1.45rem,3.6vw,2rem);line-height:1.35;color:var(--navy);max-width:46ch}
+.rv cite{display:block;margin-top:16px;font-style:normal;font-size:.85rem;font-weight:600;letter-spacing:.08em;color:var(--gold-ink)}
+.rv-ctrl{display:flex;align-items:center;gap:16px;margin-top:28px}
+.rv-dots{display:flex;gap:8px}
+.rv-dots button{width:10px;height:10px;border-radius:50%;border:1px solid var(--gold);background:none;padding:0;cursor:pointer}
+.rv-dots button[aria-current="true"]{background:var(--gold)}
+.rv-arrow{width:40px;height:40px;border:1px solid var(--gold);background:none;color:var(--navy);cursor:pointer;font-size:18px;line-height:1}
+.rv-note{margin-top:22px;font-size:.8rem;color:#6A6A6A}
+.rv-note a{color:var(--gold-ink)}
+
+/* Artigos na página inicial */
+.posts{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin-top:36px}
+.post{display:block;background:var(--white);border-top:2px solid var(--gold);padding:22px;text-decoration:none}
+.post .meta{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-ink)}
+.post h3{font-size:1.45rem;line-height:1.2;color:var(--navy);margin-top:8px}
+.post p{margin:8px 0 0;font-size:.9rem;color:var(--text)}
+
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 </style>
 </head>
@@ -192,7 +222,10 @@ section{scroll-margin-top:72px}
       <a href="#escritorio">O ESCRITÓRIO</a>
       <a href="#atuacao">ATUAÇÃO</a>
       <a href="#advogados">ADVOGADOS</a>
+      <a href="#depoimentos">DEPOIMENTOS</a>
+      <a href="artigos.html">ARTIGOS</a>
       <a href="#contato" class="cta">CONTATO</a>
+      <a href="https://www.linkedin.com/company/bentosilvafilhoadv/" class="nav-li" target="_blank" rel="noopener" aria-label="LinkedIn do escritório"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1-.02-5zM3 9.75h4V21H3zM9.5 9.75h3.8v1.6h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.65 4.77 6.1V21h-4v-4.9c0-1.17-.02-2.68-1.63-2.68-1.64 0-1.89 1.28-1.89 2.6V21h-4z"/></svg><span>LINKEDIN</span></a>
     </nav>
   </div>
 </header>
@@ -203,7 +236,7 @@ section{scroll-margin-top:72px}
     <div class="stack" style="gap:24px">
       <div class="eyebrow">Advocacia e consultoria jurídica · Poços de Caldas-MG · Atendimento em todo o Brasil</div>
       <h1>Atendimento próximo, <em>técnica rigorosa.</em></h1>
-      <p>Somos um escritório de advocacia em Poços de Caldas-MG que atende pessoas e empresas nas áreas cível, do consumidor, de família e sucessões, imobiliária e trabalhista, com atendimento presencial no escritório e on-line para clientes de todo o Brasil.</p>
+      <p>Somos um escritório de advocacia em Poços de Caldas-MG que atende pessoas e empresas nas áreas cível, do consumidor, de família, sucessões e holding, imobiliária e trabalhista, com atendimento presencial no escritório e on-line para clientes de todo o Brasil.</p>
       <div class="btns">
         <a class="btn btn-gold" href="https://wa.me/5535988056692?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20agendar%20um%20atendimento." data-track="whatsapp_hero"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z"/><path d="M9 8.5c.3 2.5 2.2 5 5 6.2l1.3-1.3 2 1-.3 1.6c-3.8.3-8.2-3.8-8.7-7.7L9.9 7l1 2z" fill="currentColor" stroke="none"/></svg> Agendar pelo WhatsApp</a>
         <a class="btn btn-line" href="#atuacao">Áreas de atuação</a>
@@ -237,7 +270,7 @@ section{scroll-margin-top:72px}
     <div class="grid-areas">
       <div class="area"><h3>Direito do Consumidor</h3><p>Cobranças indevidas, contratos bancários, cartões e falhas na prestação de serviços.</p></div>
       <div class="area"><h3>Direito Civil</h3><p>Contratos, cobranças, indenizações e acidentes de trânsito.</p></div>
-      <div class="area"><h3>Família e Sucessões</h3><p>Divórcios, inventários, testamentos e demais questões familiares e sucessórias.</p></div>
+      <div class="area"><h3>Família, Sucessões e Holding</h3><p>Divórcios, inventários, testamentos, planejamento sucessório e constituição de holding familiar e patrimonial.</p></div>
       <div class="area"><h3>Imobiliário e Condomínios</h3><p>Compra e venda, análise de documentação e administração de imóveis.</p></div>
       <div class="area"><h3>Direito do Trabalho</h3><p>Verbas rescisórias, horas extras, vínculo de emprego e demais direitos trabalhistas.</p></div>
     </div>
@@ -279,6 +312,46 @@ section{scroll-margin-top:72px}
   </div>
 </section>
 
+<section id="depoimentos" class="section reviews">
+  <div class="wrap">
+    <div class="rv-top">
+      <div class="stack">
+        <div class="eyebrow">Depoimentos</div>
+        <h2>O que dizem <em>nossos clientes</em></h2>
+      </div>
+      <div class="rv-score"><b>5,0</b><div><div class="stars" aria-hidden="true">★★★★★</div>Avaliações no Google</div></div>
+    </div>
+    <div class="rv-stage" id="rv-stage" aria-live="polite">
+      <figure class="rv on" aria-hidden="false"><div class="stars" aria-label="5 de 5 estrelas">★★★★★</div><blockquote>“Profissionais competentes, recomendo.”</blockquote><cite>Junior C. · avaliação no Google</cite></figure>
+      <figure class="rv" aria-hidden="true"><div class="stars" aria-label="5 de 5 estrelas">★★★★★</div><blockquote>“Excelentes profissionais! Muito atenciosos, claros nas explicações e sempre disponíveis para tirar dúvidas. Demonstraram grande conhecimento e conduziram todo o processo com seriedade e eficiência. Recomendo com total confiança.”</blockquote><cite>Nataly O. · avaliação no Google</cite></figure>
+      <figure class="rv" aria-hidden="true"><div class="stars" aria-label="5 de 5 estrelas">★★★★★</div><blockquote>“Atendimento excelente, profissionais éticos e muito competentes. Recomendo!”</blockquote><cite>Júlia A. · avaliação no Google</cite></figure>
+      <figure class="rv" aria-hidden="true"><div class="stars" aria-label="5 de 5 estrelas">★★★★★</div><blockquote>“Super recomendo, advogado Paulo César é um profissional sério, comprometido e dedicado à promoção do direito e da justiça.”</blockquote><cite>Maria Luisa O. · avaliação no Google</cite></figure>
+      <figure class="rv" aria-hidden="true"><div class="stars" aria-label="5 de 5 estrelas">★★★★★</div><blockquote>“Ótimo atendimento, profissionais maravilhosos.”</blockquote><cite>Clare C. · avaliação no Google</cite></figure>
+      <figure class="rv" aria-hidden="true"><div class="stars" aria-label="5 de 5 estrelas">★★★★★</div><blockquote>“Dr. Paulo é um profissional muito competente e determinado. Recomendo sem sombra de dúvidas.”</blockquote><cite>Luís Felipe S. · avaliação no Google</cite></figure>
+      <figure class="rv" aria-hidden="true"><div class="stars" aria-label="5 de 5 estrelas">★★★★★</div><blockquote>“Profissionais de altíssima qualidade.”</blockquote><cite>Lari S. · avaliação no Google</cite></figure>
+    </div>
+    <div class="rv-ctrl">
+      <button class="rv-arrow" id="rv-prev" aria-label="Depoimento anterior">‹</button>
+      <div class="rv-dots" id="rv-dots"></div>
+      <button class="rv-arrow" id="rv-next" aria-label="Próximo depoimento">›</button>
+    </div>
+    <p class="rv-note">Depoimentos publicados por clientes no perfil do escritório no Google, reproduzidos com o primeiro nome e a inicial do sobrenome. <a href="https://www.google.com/maps?cid=887300740575950939" target="_blank" rel="noopener">Ver todas as avaliações</a></p>
+  </div>
+</section>
+
+<section id="artigos" class="section">
+  <div class="wrap">
+    <div class="rv-top">
+      <div class="stack">
+        <div class="eyebrow">Artigos</div>
+        <h2>Informação jurídica <em>em linguagem clara</em></h2>
+      </div>
+      <a class="btn btn-line" style="color:var(--gold-ink)" href="artigos.html">Todos os artigos</a>
+    </div>
+    <div class="posts" id="posts"></div>
+  </div>
+</section>
+
 <section id="contato" class="section contact on-dark">
   <div class="wrap">
     <div class="stack" style="gap:16px">
@@ -295,7 +368,7 @@ section{scroll-margin-top:72px}
     <div class="info">
       <div><div class="label">WhatsApp</div><a href="https://wa.me/5535988056692" data-track="whatsapp_paulo">(35) 98805-6692</a> · Dr. Paulo César<br><a href="https://wa.me/5519982684698" data-track="whatsapp_heloisa">(19) 98268-4698</a> · Dr.ª Heloísa</div>
       <div><div class="label">E-mail</div><a href="mailto:bentosilvafilhoadv@gmail.com" data-track="email">bentosilvafilhoadv@gmail.com</a></div>
-      <div><div class="label">Redes sociais</div><a href="https://www.instagram.com/bentosilvafilhoadv/" target="_blank" rel="noopener">Instagram @bentosilvafilhoadv</a><br><a href="https://www.facebook.com/bentosilvafilhoadv" target="_blank" rel="noopener">Facebook</a></div>
+      <div><div class="label">Redes sociais</div><a href="https://www.instagram.com/bentosilvafilhoadv/" target="_blank" rel="noopener">Instagram @bentosilvafilhoadv</a><br><a href="https://www.facebook.com/bentosilvafilhoadv" target="_blank" rel="noopener">Facebook</a><br><a href="https://www.linkedin.com/company/bentosilvafilhoadv/" target="_blank" rel="noopener">LinkedIn</a></div>
       <div><div class="label">Endereço</div>Av. Dr. David Benedito Ottoni, 645, sala 02<br>Jardim dos Estados · Poços de Caldas-MG<br><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Av.+Dr.+David+Benedito+Ottoni,+645,+Po%C3%A7os+de+Caldas+MG" target="_blank" rel="noopener" data-track="mapa">Ver no mapa</a></div>
       <div><div class="label">Horário</div>Segunda a quinta, das 9h às 18h<br>Sexta, das 9h às 17h<br><small>Intervalo de almoço das 12h às 13h30</small></div>
     </div>
@@ -306,7 +379,7 @@ section{scroll-margin-top:72px}
 <footer class="site-footer">
   <div class="wrap">
     <p>Bento &amp; Silva Filho Advogados · Av. Dr. David Benedito Ottoni, 645, sala 02 · Jardim dos Estados · Poços de Caldas-MG</p>
-    <p><a href="politica-de-privacidade.html">Política de privacidade</a> · <a href="https://www.instagram.com/bentosilvafilhoadv/" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.facebook.com/bentosilvafilhoadv" target="_blank" rel="noopener">Facebook</a></p>
+    <p><a href="politica-de-privacidade.html">Política de privacidade</a> · <a href="https://www.instagram.com/bentosilvafilhoadv/" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.facebook.com/bentosilvafilhoadv" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.linkedin.com/company/bentosilvafilhoadv/" target="_blank" rel="noopener">LinkedIn</a> · <a href="artigos.html">Artigos</a></p>
   </div>
 </footer>
 
@@ -327,6 +400,25 @@ section{scroll-margin-top:72px}
   document.querySelectorAll('[data-track]').forEach(function(a){a.addEventListener('click',function(){
     if(typeof gtag==='function'){gtag('event','contato',{metodo:a.getAttribute('data-track')});}
   });});
+  // Depoimentos alternados
+  var rv=[].slice.call(document.querySelectorAll('.rv')),dots=document.getElementById('rv-dots'),cur=0,timer;
+  rv.forEach(function(_,i){var b=document.createElement('button');b.setAttribute('aria-label','Depoimento '+(i+1));b.addEventListener('click',function(){show(i);restart();});dots.appendChild(b);});
+  function show(i){rv[cur].classList.remove('on');rv[cur].setAttribute('aria-hidden','true');cur=(i+rv.length)%rv.length;rv[cur].classList.add('on');rv[cur].setAttribute('aria-hidden','false');
+    [].forEach.call(dots.children,function(d,k){d.setAttribute('aria-current',k===cur?'true':'false');});}
+  function restart(){clearInterval(timer);if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)timer=setInterval(function(){show(cur+1);},6500);}
+  document.getElementById('rv-prev').addEventListener('click',function(){show(cur-1);restart();});
+  document.getElementById('rv-next').addEventListener('click',function(){show(cur+1);restart();});
+  show(0);restart();
+  // Artigos recentes (publicados até hoje)
+  var M=['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+  var d=new Date(),h=d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);
+  function esc(t){return t.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  fetch('artigos/index.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(a){
+    a=a.filter(function(x){return x.data<=h;}).sort(function(x,y){return x.data<y.data?1:-1;}).slice(0,3);
+    var el=document.getElementById('posts');
+    if(!a.length){document.getElementById('artigos').style.display='none';return;}
+    el.innerHTML=a.map(function(x){var p=x.data.split('-');return '<a class="post" href="artigos/'+x.slug+'.html"><div class="meta">'+(+p[2])+' de '+M[+p[1]-1]+' de '+p[0]+'</div><h3>'+esc(x.titulo)+'</h3><p>'+esc(x.resumo)+'</p></a>';}).join('');
+  }).catch(function(){document.getElementById('artigos').style.display='none';});
 })();
 </script>
 </body>
