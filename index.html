@@ -120,6 +120,9 @@ section{scroll-margin-top:72px}
 .office .text{display:flex;flex-direction:column;gap:18px;color:#2E2E2E;max-width:62ch}
 .office .text p{margin:0}
 @media (max-width:760px){.office{grid-template-columns:1fr;gap:28px}.office img{max-width:100%}}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:56px}
+.gallery img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;border-bottom:3px solid var(--gold)}
+@media (max-width:760px){.gallery{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin-top:36px;padding-bottom:6px;-webkit-overflow-scrolling:touch}.gallery img{flex:0 0 82%;scroll-snap-align:start}}
 
 /* Áreas */
 .areas{background:var(--white)}
@@ -299,6 +302,11 @@ section{scroll-margin-top:72px}
       <p>Cada caso é conduzido de perto pelos próprios advogados, desde a primeira conversa até o encerramento do processo. Explicamos com clareza cada etapa, os prazos e as possibilidades envolvidas, e mantemos o cliente informado sobre o andamento do seu caso.</p>
       <p>O atendimento pode ser presencial, no escritório, ou on-line, por videochamada e WhatsApp, o que permite atender clientes de todo o Brasil.</p>
     </div>
+  </div>
+  <div class="wrap gallery" aria-label="Fotos dos advogados no escritório">
+    <img src="img/escritorio-1.jpg" alt="Paulo César Silva Filho e Heloísa G. Bento Ferreira" width="1200" height="900" loading="lazy">
+    <img src="img/escritorio-2.jpg" alt="Os advogados em reunião no escritório" width="1200" height="900" loading="lazy">
+    <img src="img/escritorio-3.jpg" alt="Heloísa G. Bento Ferreira e Paulo César Silva Filho" width="1200" height="900" loading="lazy">
   </div>
 </section>
 
