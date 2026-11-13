@@ -2,6 +2,7 @@ import json, html, urllib.parse, os, sys
 sys.path.insert(0, os.path.dirname(__file__))
 from conteudo import PAGINAS
 import ilus
+from vis import IC, VIS
 ROOT=os.path.abspath(os.path.join(os.path.dirname(__file__),'..','..'))
 BASE='https://bentosilvafilho.com.br/'
 AV=json.load(open(os.path.join(ROOT,'avaliacoes.json')))
@@ -10,11 +11,19 @@ CHK='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5
 G_LOGO='<svg viewBox="0 0 48 48" aria-hidden="true" width="18" height="18"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.6 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3a12 12 0 0 1-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>'
 CSS=open(os.path.join(os.path.dirname(__file__),'lp.css')).read()
 def e(s): return html.escape(s,quote=True)
-def card(n,t,d): return f'<div class="hip"><span class="hip-n">{n:02d}</span><h3>{e(t)}</h3><p>{e(d)}</p></div>'
+def card(n,t,d,ic=None): return f'<div class="hip">'+(f'<span class="hip-ic">{IC[ic]}</span>' if ic else f'<span class="hip-n">{n:02d}</span>')+f'<h3>{e(t)}</h3><p>{e(d)}</p></div>'
 def page(p):
     wa=f"https://wa.me/{p['wa']}?text="+urllib.parse.quote(p['msg'])
     def btn(cls,txt,tag): return f'<a class="wa-btn {cls}" href="{wa}" target="_blank" rel="noopener" data-track="{tag}">{WA_ICON}<span>{e(txt)}</span></a>'
-    hips=''.join(card(i+1,t,d) for i,(t,d) in enumerate(p['hip']))
+    V=VIS.get(p['slug'],{})
+    ics=V.get('ic',[])
+    hips=''.join(card(i+1,t,d,ics[i] if i<len(ics) else None) for i,(t,d) in enumerate(p['hip']))
+    stats_html=''
+    if V.get('stats'):
+        stats_html='<section class="stats"><div class="wrap stats-in">'+''.join(f'<div class="stat"><b>{e(n)}</b><span>{e(l)}</span><small>{e(s)}</small></div>' for n,l,s in V['stats'])+'</div></section>'
+    linha_html=''
+    if V.get('linha'):
+        linha_html=f'<div class="tl"><h3 class="tl-t">{e(V.get("linha_t",""))}</h3><ol class="tl-l">'+''.join(f'<li><span class="tl-d"></span><b>{e(m)}</b><span>{e(d)}</span></li>' for m,d in V['linha'])+'</ol></div>'
     docs=''.join(f'<li>{CHK}<span>{e(d)}</span></li>' for d in p['docs'])
     faq=''.join(f'<details><summary>{e(q)}</summary><p>{e(a)}</p></details>' for q,a in p['faq'])
     rv=[x for x in AV['avaliacoes'] if x.get('nota')==5 and x.get('texto','').strip()]
@@ -69,6 +78,7 @@ def page(p):
   </div>
   <div class="hero-art">{getattr(ilus,p['ilus'])}</div>
 </div></section>
+{stats_html}
 
 <section class="sec"><div class="wrap">
   <div class="eyebrow dk">Hipóteses</div>
@@ -77,7 +87,7 @@ def page(p):
   <div class="mid-cta"><p>Se você se identificou com alguma dessas situações, envie os detalhes agora.</p>{btn('wa-md pulse','Falar pelo WhatsApp','whatsapp_hipoteses')}</div>
 </div></section>
 
-<section class="sec alt"><div class="wrap two">
+<section class="sec alt"><div class="wrap">{linha_html}</div><div class="wrap two">
   <div><div class="eyebrow dk">Entenda</div><h2>{e(p['info_t'])}</h2><p class="body">{e(p['info'])}</p></div>
   <div class="box"><h3>O que separar para a análise</h3><ul class="docs">{docs}</ul><p class="alert"><b>Atenção:</b> {e(p['prazo'])}</p></div>
 </div></section>

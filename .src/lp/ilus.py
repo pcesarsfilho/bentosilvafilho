@@ -109,3 +109,15 @@ GOL=base(f'''
 <g transform="translate(270 92)"><path d="M80 0 L160 140 L0 140Z" fill="{G}"/><rect x="74" y="44" width="12" height="54" rx="6" fill="{N}"/><circle cx="80" cy="116" r="8" fill="{N}"/></g>
 <g transform="translate(262 262) rotate(-8)"><rect width="168" height="96" rx="12" fill="{N}"/><rect y="20" width="168" height="18" fill="{GD}"/><rect x="16" y="56" width="40" height="26" rx="5" fill="{G}"/><g stroke="{C}" stroke-width="4" stroke-linecap="round"><line x1="72" y1="64" x2="150" y2="64"/><line x1="72" y1="78" x2="124" y2="78"/></g></g>
 ''')
+FAM=base(f'''
+<rect x="20" y="20" width="440" height="360" rx="28" fill="{C}"/>
+<g transform="translate(60 92)">
+<circle cx="60" cy="40" r="30" fill="{N}"/><path d="M10 170 C10 110 110 110 110 170Z" fill="{N}"/>
+<circle cx="190" cy="40" r="30" fill="{G}"/><path d="M140 170 C140 110 240 110 240 170Z" fill="{G}"/>
+<circle cx="125" cy="118" r="20" fill="{S}"/><path d="M95 190 C95 150 155 150 155 190Z" fill="{S}"/>
+<path d="M125 82 c-8 -14 -28 -8 -22 8 c4 10 22 20 22 20 c0 0 18 -10 22 -20 c6 -16 -14 -22 -22 -8z" fill="{R}"/></g>
+<g transform="translate(300 240)"><rect width="136" height="110" rx="10" fill="{W}" stroke="{N}" stroke-width="4"/>
+<text x="18" y="30" style="{F};font-weight:600;font-size:11px;letter-spacing:1.5px" fill="{N}">ACORDO</text>
+<g stroke="{S}" stroke-width="3" stroke-linecap="round"><line x1="18" y1="50" x2="118" y2="50"/><line x1="18" y1="66" x2="100" y2="66"/></g>
+<path d="M22 92 q10 -12 20 0 t20 0" stroke="{N}" stroke-width="3" fill="none"/><path d="M74 92 q10 -12 20 0" stroke="{GD}" stroke-width="3" fill="none"/></g>
+''')
