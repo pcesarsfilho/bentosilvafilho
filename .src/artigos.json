@@ -56,23 +56,6 @@
   ]
  },
  {
-  "slug": "bpc-loas-quem-tem-direito",
-  "data": "2026-12-08",
-  "titulo": "BPC/LOAS: quem tem direito ao benefício assistencial",
-  "resumo": "O Benefício de Prestação Continuada garante um salário mínimo mensal a idosos e pessoas com deficiência em situação de vulnerabilidade. Veja os requisitos.",
-  "area": "Direito Assistencial",
-  "corpo": [
-   "O Benefício de Prestação Continuada, conhecido como BPC ou LOAS, é um direito assistencial previsto no art. 203, inciso V, da Constituição Federal e regulamentado pela Lei nº 8.742/1993, a Lei Orgânica da Assistência Social. Ele garante o pagamento de um salário mínimo mensal a quem não tem meios de prover a própria manutenção nem de tê-la provida por sua família.",
-   "## Quem pode receber",
-   "Nos termos do art. 20 da Lei nº 8.742/1993, o benefício é destinado à pessoa idosa, com 65 anos ou mais, e à pessoa com deficiência de qualquer idade. Considera-se pessoa com deficiência aquela que tem impedimento de longo prazo de natureza física, mental, intelectual ou sensorial que, em interação com diversas barreiras, pode obstruir sua participação plena e efetiva na sociedade.",
-   "## O critério de renda",
-   "A lei adota como referência a renda familiar mensal por pessoa igual ou inferior a um quarto do salário mínimo. Esse critério, contudo, não é absoluto. O Supremo Tribunal Federal, no julgamento do Recurso Extraordinário nº 567.985, reconheceu que a miserabilidade pode ser demonstrada por outros meios, e a própria Lei nº 8.742/1993, com as alterações da Lei nº 14.176/2021, passou a admitir a consideração de outros elementos que evidenciem a condição de vulnerabilidade do grupo familiar.",
-   "## Pontos de atenção",
-   "O BPC não é aposentadoria. Por isso, não exige contribuições ao INSS, mas também não paga décimo terceiro e não gera pensão por morte aos dependentes. A inscrição atualizada no Cadastro Único para Programas Sociais do Governo Federal é requisito para a concessão e para a manutenção do benefício.",
-   "O pedido é feito ao INSS, pelo aplicativo ou site Meu INSS ou pela central 135. Em caso de indeferimento, é possível recorrer administrativamente ou buscar a via judicial, conforme as circunstâncias do caso."
-  ]
- },
- {
   "slug": "negativacao-indevida-o-que-fazer",
   "data": "2026-12-15",
   "titulo": "Nome negativado indevidamente: o que fazer",
@@ -111,6 +94,26 @@
    "## Documentos iniciais",
    "Em geral, são necessários a certidão de óbito, os documentos pessoais do falecido e dos herdeiros, a certidão de casamento ou de união estável, as matrículas atualizadas dos imóveis, os documentos de veículos e os extratos de contas e investimentos. Reunir esse material com antecedência agiliza a análise do caso e a elaboração da partilha.",
    "Cada família tem particularidades, como a existência de testamento, de dívidas ou de bens em outros estados, que influenciam a escolha do caminho mais adequado."
+  ]
+ },
+ {
+  "slug": "distrato-imovel-na-planta",
+  "data": "2026-12-08",
+  "titulo": "Desistiu do imóvel na planta: o que diz a Lei do Distrato",
+  "resumo": "Quem compra imóvel na planta e precisa desistir tem direito à devolução de parte do que pagou. Entenda as regras da Lei nº 13.786/2018.",
+  "area": "Direito Imobiliário",
+  "corpo": [
+   "A compra de um imóvel na planta costuma envolver um compromisso financeiro de vários anos. Ao longo desse período, mudanças na renda, na família ou nos planos podem levar o comprador a desistir do negócio. Nessa situação, surge a dúvida sobre quanto do valor pago pode ser recuperado.",
+   "## A Lei do Distrato",
+   "A Lei nº 13.786/2018, conhecida como Lei do Distrato, incluiu o art. 67-A na Lei nº 4.591/1964, que trata das incorporações imobiliárias, e passou a disciplinar o desfazimento do contrato por iniciativa ou inadimplemento do comprador.",
+   "Pela regra geral do inciso II do art. 67-A, a incorporadora pode reter a título de pena convencional até 25% da quantia paga, além de descontar integralmente a comissão de corretagem. Quando o empreendimento está submetido ao regime do patrimônio de afetação, a lei admite retenção maior, de até 50% dos valores pagos.",
+   "## Prazos para a devolução",
+   "Nos empreendimentos sem patrimônio de afetação, a restituição deve ocorrer em até 180 dias contados do desfazimento do contrato. Nos empreendimentos submetidos ao patrimônio de afetação, a devolução ocorre em até 30 dias após a expedição do habite-se. Também podem ser descontados valores como tributos e taxas do imóvel e a fruição, quando o comprador já tiver recebido as chaves.",
+   "## O direito de arrependimento",
+   "Quando o contrato é assinado em estande de vendas ou fora da sede da incorporadora, o § 10 do art. 67-A garante ao comprador o direito de arrependimento no prazo improrrogável de 7 dias, com a devolução de todos os valores antecipados, inclusive a comissão de corretagem.",
+   "## Pontos de atenção",
+   "Antes de pedir o distrato, vale reler o contrato, em especial o quadro-resumo, que deve informar de forma clara as consequências do desfazimento, e reunir os comprovantes de todos os pagamentos realizados. Também é importante verificar se houve atraso da obra ou descumprimento por parte da incorporadora, pois, nessas hipóteses, a lógica da devolução é diferente e pode ser mais favorável ao comprador.",
+   "Cada contrato tem particularidades, como a data de assinatura, o regime do empreendimento e o andamento da obra, que influenciam o cálculo do valor a ser devolvido."
   ]
  }
 ]
