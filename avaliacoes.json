@@ -1,43 +1,43 @@
 {
- "media": 5.0,
- "total": 11,
- "url": "https://www.google.com/maps?cid=887300740575950939",
- "atualizado": "2026-11-12",
- "avaliacoes": [
-  {
-   "nome": "Junior C.",
-   "texto": "Profissionais competentes, recomendo.",
-   "nota": 5
-  },
-  {
-   "nome": "Nataly O.",
-   "texto": "Excelentes profissionais! Muito atenciosos, claros nas explicações e sempre disponíveis para tirar dúvidas. Demonstraram grande conhecimento e conduziram todo o processo com seriedade e eficiência. Recomendo com total confiança.",
-   "nota": 5
-  },
-  {
-   "nome": "Júlia A.",
-   "texto": "Atendimento excelente, profissionais éticos e muito competentes. Recomendo!",
-   "nota": 5
-  },
-  {
-   "nome": "Maria Luisa O.",
-   "texto": "Super recomendo, advogado Paulo César é um profissional sério, comprometido e dedicado à promoção do direito e da justiça.",
-   "nota": 5
-  },
-  {
-   "nome": "Clare C.",
-   "texto": "Ótimo atendimento, profissionais maravilhosos.",
-   "nota": 5
-  },
-  {
-   "nome": "Luís Felipe S.",
-   "texto": "Dr. Paulo é um profissional muito competente e determinado. Recomendo sem sombra de dúvidas.",
-   "nota": 5
-  },
-  {
-   "nome": "Lari S.",
-   "texto": "Profissionais de altíssima qualidade.",
-   "nota": 5
-  }
- ]
+  "media": 5.0,
+  "total": 38,
+  "url": "https://www.google.com/maps?cid=887300740575950939",
+  "atualizado": "2026-11-13",
+  "avaliacoes": [
+    {
+      "nome": "Junior C.",
+      "texto": "Profissionais competentes, recomendo.",
+      "nota": 5
+    },
+    {
+      "nome": "Nataly O.",
+      "texto": "Excelentes profissionais! Muito atenciosos, claros nas explicações e sempre disponíveis para tirar dúvidas. Demonstraram grande conhecimento e conduziram todo o processo com seriedade e eficiência. Recomendo com total confiança.",
+      "nota": 5
+    },
+    {
+      "nome": "Júlia A.",
+      "texto": "Atendimento excelente, profissionais éticos e muito competentes. Recomendo!",
+      "nota": 5
+    },
+    {
+      "nome": "Maria Luisa O.",
+      "texto": "Super recomendo, advogado Paulo César é um profissional sério, comprometido e dedicado à promoção do direito e da justiça.",
+      "nota": 5
+    },
+    {
+      "nome": "Clare C.",
+      "texto": "Ótimo atendimento, profissionais maravilhosos.",
+      "nota": 5
+    },
+    {
+      "nome": "Luís Felipe S.",
+      "texto": "Dr. Paulo é um profissional muito competente e determinado. Recomendo sem sombra de dúvidas.",
+      "nota": 5
+    },
+    {
+      "nome": "Lari S.",
+      "texto": "Profissionais de altíssima qualidade.",
+      "nota": 5
+    }
+  ]
 }

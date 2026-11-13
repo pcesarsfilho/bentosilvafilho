@@ -105,7 +105,7 @@ def page(p):
 </div></section>
 
 <section class="sec rv-sec"><div class="wrap">
-  <div class="rv-head"><span class="rv-score">{G_LOGO}<b>5,0</b><span class="st">★★★★★</span></span><span class="rv-lbl">Avaliações de clientes no Google</span></div>
+  <div class="rv-head"><span class="rv-score">{G_LOGO}<b>5,0</b><span class="st">★★★★★</span></span><span class="rv-lbl" id="rv-total">{AV.get("total","")} avaliações de clientes no Google</span></div>
   <div class="rv-vp"><div class="rvs" id="rvs">{rvs}</div></div><div class="rv-dots" id="rv-dots"></div>
 </div></section>
 
@@ -144,6 +144,7 @@ def page(p):
   window.addEventListener('resize',function(){{bd();go(Math.min(pos,pg()-1));}});
   bd();go(0);rs();
   fetch('../avaliacoes.json',{{cache:'no-store'}}).then(function(r){{return r.json();}}).then(function(d){{
+    if(d.total){{var rt=document.getElementById('rv-total');if(rt)rt.textContent=d.total+' avaliações de clientes no Google';}}
     var l=(d.avaliacoes||[]).filter(function(x){{return Number(x.nota)===5&&x.texto&&x.texto.trim();}});
     if(l.length){{tr.innerHTML=l.map(function(x){{return '<figure class="rv"><div class="st">★★★★★</div><blockquote>“'+es(x.texto)+'”</blockquote><figcaption>'+es(x.nome)+' · Google</figcaption></figure>';}}).join('');bd();go(0);}}
   }}).catch(function(){{}});
