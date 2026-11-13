@@ -17,7 +17,7 @@ def page(p):
     hips=''.join(card(i+1,t,d) for i,(t,d) in enumerate(p['hip']))
     docs=''.join(f'<li>{CHK}<span>{e(d)}</span></li>' for d in p['docs'])
     faq=''.join(f'<details><summary>{e(q)}</summary><p>{e(a)}</p></details>' for q,a in p['faq'])
-    rv=[x for x in AV['avaliacoes'] if x.get('nota')==5 and len(x['texto'])>40][:3]
+    rv=[x for x in AV['avaliacoes'] if x.get('nota')==5 and x.get('texto','').strip()]
     rvs=''.join(f'<figure class="rv"><div class="st">★★★★★</div><blockquote>“{e(x["texto"])}”</blockquote><figcaption>{e(x["nome"])} · Google</figcaption></figure>' for x in rv)
     chips=''.join(f'<li>{CHK}{e(c)}</li>' for c in p['chips'])
     url=BASE+p['slug']+'/'
@@ -93,7 +93,7 @@ def page(p):
 
 <section class="sec rv-sec"><div class="wrap">
   <div class="rv-head"><span class="rv-score">{G_LOGO}<b>5,0</b><span class="st">★★★★★</span></span><span class="rv-lbl">Avaliações de clientes no Google</span></div>
-  <div class="rvs" id="rvs">{rvs}</div>
+  <div class="rv-vp"><div class="rvs" id="rvs">{rvs}</div></div><div class="rv-dots" id="rv-dots"></div>
 </div></section>
 
 <section class="final"><div class="wrap">
@@ -116,9 +116,18 @@ def page(p):
   var bar=document.querySelector('.sticky'),hero=document.querySelector('.hero .wa-lg');
   if('IntersectionObserver' in window&&hero){{new IntersectionObserver(function(en){{bar.classList.toggle('on',!en[0].isIntersecting);}}).observe(hero);}}else{{bar.classList.add('on');}}
   function es(s){{return String(s).replace(/[&<>"]/g,function(c){{return {{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}}[c];}});}}
+  var tr=document.getElementById('rvs'),dt=document.getElementById('rv-dots'),pos=0,tm;
+  function pv(){{return window.innerWidth<=620?1:(window.innerWidth<=900?2:3);}}
+  function pg(){{return Math.max(1,tr.children.length-pv()+1);}}
+  function bd(){{dt.innerHTML='';for(var i=0;i<pg();i++){{(function(i){{var b=document.createElement('button');b.setAttribute('aria-label','Avaliação '+(i+1));b.addEventListener('click',function(){{go(i);rs();}});dt.appendChild(b);}})(i);}}}}
+  function go(i){{var n=pg();pos=(i+n)%n;var c=tr.children[0];var s=c?c.getBoundingClientRect().width+14:0;tr.style.transform='translateX('+(-pos*s)+'px)';[].forEach.call(dt.children,function(d,k){{d.setAttribute('aria-current',k===pos?'true':'false');}});}}
+  function rs(){{clearInterval(tm);if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)tm=setInterval(function(){{go(pos+1);}},4000);}}
+  tr.addEventListener('mouseenter',function(){{clearInterval(tm);}});tr.addEventListener('mouseleave',rs);
+  window.addEventListener('resize',function(){{bd();go(Math.min(pos,pg()-1));}});
+  bd();go(0);rs();
   fetch('../avaliacoes.json',{{cache:'no-store'}}).then(function(r){{return r.json();}}).then(function(d){{
-    var l=(d.avaliacoes||[]).filter(function(x){{return Number(x.nota)===5&&x.texto&&x.texto.length>40;}}).slice(0,3);
-    if(l.length)document.getElementById('rvs').innerHTML=l.map(function(x){{return '<figure class="rv"><div class="st">★★★★★</div><blockquote>“'+es(x.texto)+'”</blockquote><figcaption>'+es(x.nome)+' · Google</figcaption></figure>';}}).join('');
+    var l=(d.avaliacoes||[]).filter(function(x){{return Number(x.nota)===5&&x.texto&&x.texto.trim();}});
+    if(l.length){{tr.innerHTML=l.map(function(x){{return '<figure class="rv"><div class="st">★★★★★</div><blockquote>“'+es(x.texto)+'”</blockquote><figcaption>'+es(x.nome)+' · Google</figcaption></figure>';}}).join('');bd();go(0);}}
   }}).catch(function(){{}});
 }})();
 </script>
