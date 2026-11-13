@@ -187,3 +187,22 @@ open(os.path.join(REPO, 'artigos.html'), 'w', encoding='utf-8').write(
     page('Artigos e notícias | Bento & Silva Filho Advogados', 'Artigos jurídicos e notícias do escritório Bento & Silva Filho Advogados.',
          BASE + 'artigos.html', lista, prefix=''))
 print(len(arts), 'publicações')
+
+# Sitemap: páginas fixas, landing pages e artigos já publicados (data até hoje)
+import datetime, sys
+_hoje = datetime.date.today().isoformat()
+_urls = [BASE, BASE + 'artigos.html']
+_lp_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'lp')
+sys.path.insert(0, _lp_dir)
+try:
+    from conteudo import PAGINAS as _LPS
+    _urls += [f"{BASE}{p['slug']}/" for p in _LPS]
+except Exception:
+    pass
+_urls += [f"{BASE}artigos/{x['slug']}.html" for x in sorted(arts, key=lambda x: x['data'], reverse=True) if x['data'] <= _hoje]
+if os.path.exists(os.path.join(REPO, 'politica-de-privacidade.html')):
+    _urls.append(BASE + 'politica-de-privacidade.html')
+open(os.path.join(REPO, 'sitemap.xml'), 'w', encoding='utf-8').write(
+    '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+    ''.join(f'  <url><loc>{u}</loc></url>\n' for u in _urls) + '</urlset>\n')
+print('sitemap:', len(_urls), 'URLs')
