@@ -29,7 +29,7 @@ def page(p):
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{e(p['title'])}</title>
 <meta name="description" content="{e(p['desc'])}">
-<meta name="robots" content="noindex, follow">
+<meta name="robots" content="index, follow">
 <meta name="theme-color" content="#0E1B33">
 <link rel="canonical" href="{url}">
 <link rel="icon" type="image/png" href="../favicon.png">
