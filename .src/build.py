@@ -4,7 +4,7 @@ import json, html, os, re
 from datetime import date
 
 REPO = '/home/claude/bentosilvafilho'
-BASE = 'https://pcesarsfilho.github.io/bentosilvafilho/'
+BASE = 'https://bentosilvafilho.com.br/'
 LINKEDIN = 'https://www.linkedin.com/company/bentosilvafilhoadv/'
 MESES = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro']
 arts = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'artigos.json'), encoding='utf-8'))
