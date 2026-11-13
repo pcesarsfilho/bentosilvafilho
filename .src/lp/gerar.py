@@ -19,6 +19,13 @@ def page(p):
     faq=''.join(f'<details><summary>{e(q)}</summary><p>{e(a)}</p></details>' for q,a in p['faq'])
     rv=[x for x in AV['avaliacoes'] if x.get('nota')==5 and x.get('texto','').strip()]
     rvs=''.join(f'<figure class="rv"><div class="st">★★★★★</div><blockquote>“{e(x["texto"])}”</blockquote><figcaption>{e(x["nome"])} · Google</figcaption></figure>' for x in rv)
+    DEF_STEPS=[('Você manda a mensagem','Conte o que aconteceu pelo WhatsApp, a qualquer hora. Fotos e documentos podem ir pelo próprio celular.'),('Analisamos o seu caso','Verificamos os documentos e explicamos com clareza as possibilidades, os prazos e os próximos passos.'),('Acompanhamento até o fim','Atendimento personalizado pelo advogado, com notícias de cada etapa, sem precisar sair de casa.')]
+    st=p.get('steps',DEF_STEPS)
+    steps_html=f"<h2>{p.get('steps_t','Rápido, on-line e <em>do seu jeito</em>')}</h2><ol class=\"steps n{len(st)}\">"+''.join(f'<li><span>{i+1}</span><h3>{e(t)}</h3><p>{e(d)}</p></li>' for i,(t,d) in enumerate(st))+'</ol>'
+    comp_html=''
+    if p.get('comp'):
+        cards=''.join(f'<div class="cmp-c{" alt" if k else ""}"><h3>{e(t)}</h3><ul>'+''.join(f'<li>{CHK}<span>{e(x)}</span></li>' for x in it)+'</ul></div>' for k,(t,it) in enumerate(p['comp']))
+        comp_html=f'<section class="sec"><div class="wrap"><div class="eyebrow dk">Comparativo</div><h2>Inventário em cartório ou na Justiça</h2><div class="cmp">{cards}</div><p class="cmp-note">A escolha depende dos herdeiros, dos bens e dos documentos. Essa análise é a primeira etapa do nosso atendimento.</p></div></section>'
     chips=''.join(f'<li>{CHK}{e(c)}</li>' for c in p['chips'])
     url=BASE+p['slug']+'/'
     adv,oab=p['adv']
@@ -74,14 +81,10 @@ def page(p):
   <div class="box"><h3>O que separar para a análise</h3><ul class="docs">{docs}</ul><p class="alert"><b>Atenção:</b> {e(p['prazo'])}</p></div>
 </div></section>
 
+{comp_html}
 <section class="sec dark"><div class="wrap">
   <div class="eyebrow">Como funciona</div>
-  <h2>Rápido, on-line e <em>do seu jeito</em></h2>
-  <ol class="steps">
-    <li><span>1</span><h3>Você manda a mensagem</h3><p>Conte o que aconteceu pelo WhatsApp, a qualquer hora. Fotos e documentos podem ir pelo próprio celular.</p></li>
-    <li><span>2</span><h3>Analisamos o seu caso</h3><p>Verificamos os documentos e explicamos com clareza as possibilidades, os prazos e os próximos passos.</p></li>
-    <li><span>3</span><h3>Acompanhamento até o fim</h3><p>Atendimento personalizado pelo advogado, com notícias de cada etapa, sem precisar sair de casa.</p></li>
-  </ol>
+  {steps_html}
   {btn('wa-lg pulse',p['cta'],'whatsapp_passos')}
 </div></section>
 

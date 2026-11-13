@@ -59,3 +59,20 @@ RES=base(f'''
 <g transform="translate(352 278) scale(.86)"><rect width="100" height="100" rx="12" fill="{N}"/><rect width="100" height="28" rx="12" fill="{G}"/><rect y="16" width="100" height="12" fill="{G}"/>
 <text x="50" y="76" text-anchor="middle" style="{F};font-weight:600;font-size:34px" fill="{C}">10</text><text x="50" y="94" text-anchor="middle" style="{F};font-weight:600;font-size:10px;letter-spacing:2px" fill="{G}">DIAS</text></g>
 ''')
+INV=base(f'''
+<rect x="20" y="20" width="440" height="360" rx="28" fill="{C}"/>
+<g transform="translate(46 70)">
+<g stroke="{GD}" stroke-width="3" fill="none"><path d="M100 46 V78 M40 78 H160 M40 78 V104 M100 78 V104 M160 78 V104"/></g>
+<circle cx="100" cy="28" r="22" fill="{N}"/><path d="M88 30 a12 12 0 0 1 24 0" fill="none" stroke="{G}" stroke-width="3"/><circle cx="100" cy="20" r="6" fill="{G}"/>
+<g fill="{G}"><circle cx="40" cy="124" r="18"/><circle cx="100" cy="124" r="18"/><circle cx="160" cy="124" r="18"/></g>
+<g fill="{N}"><circle cx="40" cy="118" r="6"/><circle cx="100" cy="118" r="6"/><circle cx="160" cy="118" r="6"/><path d="M30 134 a10 8 0 0 1 20 0z"/><path d="M90 134 a10 8 0 0 1 20 0z"/><path d="M150 134 a10 8 0 0 1 20 0z"/></g>
+</g>
+<g transform="translate(60 228)"><path d="M0 64 L60 14 L120 64Z" fill="{N}"/><rect x="12" y="62" width="96" height="70" fill="{W}" stroke="{N}" stroke-width="4"/><rect x="48" y="90" width="24" height="42" fill="{G}"/><rect x="22" y="76" width="18" height="18" fill="{L}"/><rect x="80" y="76" width="18" height="18" fill="{L}"/></g>
+<g transform="translate(262 92)"><rect width="168" height="232" rx="10" fill="{W}" stroke="{N}" stroke-width="4"/>
+<text x="20" y="34" style="{F};font-weight:600;font-size:11px;letter-spacing:1.5px" fill="{N}">FORMAL DE</text><text x="20" y="50" style="{F};font-weight:600;font-size:11px;letter-spacing:1.5px" fill="{N}">PARTILHA</text>
+<g style="{F};font-size:11.5px;font-weight:500" fill="{S}"><text x="20" y="70">Herdeiro 1</text><text x="20" y="96">Herdeiro 2</text><text x="20" y="122">Herdeiro 3</text></g>
+<g style="{F};font-size:12px;font-weight:600" fill="{N}"><text x="122" y="70">1/3</text><text x="122" y="96">1/3</text><text x="122" y="122">1/3</text></g>
+<line x1="20" y1="142" x2="148" y2="142" stroke="{L}" stroke-width="2"/>
+<g stroke="{S}" stroke-width="3" stroke-linecap="round"><line x1="20" y1="166" x2="130" y2="166"/><line x1="20" y1="184" x2="110" y2="184"/></g>
+<circle cx="126" cy="204" r="18" fill="{G}"/><path d="M118 204 l6 6 l11 -13" stroke="{N}" stroke-width="4" fill="none" stroke-linecap="round"/></g>
+''')
