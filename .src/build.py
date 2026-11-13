@@ -115,6 +115,9 @@ LP_LINK = {
     'cobranca-indevida-devolucao-em-dobro': ('nome-negativado/', 'A cobrança indevida virou negativação?', 'Veja o que fazer quando o seu nome é incluído no Serasa ou no SPC sem motivo.'),
     'distrato-imovel-na-planta': ('compra-de-imovel/', 'Vai comprar ou já comprou um imóvel?', 'Veja como funciona a análise jurídica da compra, do contrato ao registro.'),
     'decimo-terceiro-salario-prazos': ('direitos-trabalhistas/', 'Tem dúvidas sobre os seus direitos trabalhistas?', 'Rescisão, horas extras, FGTS, justa causa e outras questões: veja como funciona o atendimento.'),
+    'voo-cancelado-ou-atrasado-nas-ferias': ('voo-cancelado-atrasado/', 'Teve problema com um voo?', 'Veja como funciona a análise do seu caso, com atendimento on-line para todo o Brasil.'),
+    'holding-familiar-quando-vale-a-pena': ('holding-familiar/', 'Quer organizar a sucessão da sua família?', 'Veja como funciona o planejamento sucessório e o estudo de viabilidade da holding.'),
+    'acidente-de-transito-o-que-pode-ser-cobrado': ('acidente-de-transito/', 'Sofreu um acidente de trânsito?', 'Veja o que pode ser reparado e quais documentos reunir para a análise.'),
     'golpe-do-falso-advogado': ('golpe-bancario/', 'Caiu em golpe ou teve transferências que não fez?', 'Veja quando o banco responde pela fraude e o que fazer agora.'),
 }
 os.makedirs(os.path.join(REPO, 'artigos'), exist_ok=True)
