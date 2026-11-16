@@ -70,7 +70,10 @@ def page(title, desc, url, body, prefix='', extra_head=''):
 <meta name="description" content="{html.escape(desc)}">
 <meta name="theme-color" content="#0E1B33">
 <link rel="canonical" href="{url}">
-<link rel="icon" type="image/png" href="{prefix}favicon.png">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
 <meta property="og:type" content="article">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:title" content="{html.escape(title)}">

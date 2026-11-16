@@ -48,7 +48,10 @@ def page(p):
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#0E1B33">
 <link rel="canonical" href="{url}">
-<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
 <meta property="og:type" content="website"><meta property="og:locale" content="pt_BR">
 <meta property="og:title" content="{e(p['title'])}"><meta property="og:description" content="{e(p['desc'])}">
 <meta property="og:url" content="{url}"><meta property="og:image" content="{BASE}img/og.jpg">
