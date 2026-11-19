@@ -453,7 +453,7 @@ section{scroll-margin-top:72px}
   var d=new Date(),h=d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);
   function esc(t){return t.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
   fetch('artigos/index.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(a){
-    a=a.filter(function(x){return x.data<=h;}).sort(function(x,y){return x.data<y.data?1:-1;}).slice(0,3);
+    a=a.filter(function(x){return x.data<=h;}).sort(function(x,y){if(!!x.fixo!==!!y.fixo)return x.fixo?-1:1;return x.data<y.data?1:-1;}).slice(0,3);
     var el=document.getElementById('posts');
     if(!a.length){document.getElementById('artigos').style.display='none';return;}
     el.innerHTML=a.map(function(x){var p=x.data.split('-');return '<a class="post" href="artigos/'+x.slug+'.html">'+(x.capa?'<img src="'+x.capa+'" alt="" loading="lazy">':'')+'<div class="meta">'+(x.tipo==='noticia'?'Notícia · ':'')+(+p[2])+' de '+M[+p[1]-1]+' de '+p[0]+'</div><h3>'+esc(x.titulo)+'</h3><p>'+esc(x.resumo)+'</p></a>';}).join('');

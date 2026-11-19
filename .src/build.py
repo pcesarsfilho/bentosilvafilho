@@ -162,7 +162,7 @@ for a in arts:
     open(os.path.join(REPO, 'artigos', a['slug'] + '.html'), 'w', encoding='utf-8').write(doc)
 
 # índice publicado (o site mostra somente artigos com data de hoje ou anterior)
-idx = [{k: a[k] for k in ('slug', 'data', 'titulo', 'resumo', 'area', 'tipo', 'capa') if k in a} for a in arts]
+idx = [{k: a[k] for k in ('slug', 'data', 'titulo', 'resumo', 'area', 'tipo', 'capa', 'fixo') if k in a} for a in arts]
 json.dump(idx, open(os.path.join(REPO, 'artigos', 'index.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 
 lista = f"""<section class="head"><div class="wrap">
@@ -179,7 +179,7 @@ lista = f"""<section class="head"><div class="wrap">
   function esc(s){{return s.replace(/[&<>"]/g,function(c){{return {{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}}[c];}});}}
   var hoje=new Date();var h=hoje.getFullYear()+'-'+('0'+(hoje.getMonth()+1)).slice(-2)+'-'+('0'+hoje.getDate()).slice(-2);
   fetch('artigos/index.json',{{cache:'no-store'}}).then(function(r){{return r.json();}}).then(function(a){{
-    a=a.filter(function(x){{return x.data<=h;}}).sort(function(x,y){{return x.data<y.data?1:-1;}});
+    a=a.filter(function(x){{return x.data<=h;}}).sort(function(x,y){{if(!!x.fixo!==!!y.fixo)return x.fixo?-1:1;return x.data<y.data?1:-1;}});
     var el=document.getElementById('lista');
     if(!a.length){{el.innerHTML='<p class="vazio">Em breve, novos conteúdos por aqui.</p>';return;}}
     el.innerHTML=a.map(function(x){{var n=x.tipo==='noticia';var t='<div><div class="meta">'+(n?'<span class="tag">NOTÍCIA</span>':esc(x.area)+' · ')+ext(x.data)+'</div><h2>'+esc(x.titulo)+'</h2><p>'+esc(x.resumo)+'</p><span class="ler">'+(n?'LER NOTÍCIA':'LER ARTIGO')+'</span></div>';return '<a class="card'+(x.capa?' com-capa':'')+'" href="artigos/'+x.slug+'.html">'+(x.capa?'<img src="'+x.capa+'" alt="" loading="lazy">':'')+t+'</a>';}}).join('');

@@ -138,6 +138,7 @@
  },
  {
   "slug": "19-conferencia-mineira-da-advocacia",
+  "fixo": true,
   "tipo": "noticia",
   "data": "2026-11-13",
   "titulo": "Bento & Silva Filho na 19ª Conferência Mineira da Advocacia",
