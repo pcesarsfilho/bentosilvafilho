@@ -31,21 +31,23 @@ function indice(n) {
   return null;
 }
 
-// Tradução das movimentações para linguagem simples. A mais recente que casar define a situação.
-// Movimentações de rotina (juntadas, expedições etc.) não casam e são ignoradas.
+// Tradução das movimentações para linguagem simples. No DataJud cada movimentação vem em pedaços (nome + complementos tabelados,
+// ex.: "Conclusão" + "para julgamento"; "de Conciliação" + "designada"), então a regra olha para o texto junto e, quando existe, para o código da tabela do CNJ.
+// A mais recente que casar define a situação. Rotina (juntadas, expedições, publicações etc.) é ignorada.
+const RUIDO = /^(publicacao|disponibilizacao|expedicao|expedida|expedido|documento|peticao|mero expediente|ato ordinatorio|decurso|confirmada|em secretaria|mandado|juntada|remessa|processo devolvido|defensor|recebimento)/;
 const REGRAS = [
-  { re: /baixa definitiva|arquivad[oa] definitiv|arquivamento definitivo/, fim: true, fase: 'Processo encerrado', texto: 'O processo foi encerrado e arquivado.', prox: 'Nenhuma providência pendente por aqui.' },
+  { re: /baixa definitiva|^definitivo$/, fim: true, fase: 'Processo encerrado', texto: 'O processo foi encerrado e arquivado.', prox: 'Nenhuma providência pendente por aqui.' },
   { re: /transito em julgado/, fase: 'Decisão definitiva', texto: 'Não cabe mais recurso da decisão proferida nesta fase do processo.', prox: 'Se houver próxima etapa, como o cumprimento da decisão, o escritório informa.' },
-  { re: /cumprimento de sentenca|inicio da execucao|execucao/, fase: 'Cumprimento da decisão', texto: 'O processo está na fase de fazer valer o que foi decidido.', prox: 'Acompanhamento pelo escritório. Avisamos quando houver novidade relevante.' },
-  { re: /alvara|levantamento|pagamento/, fase: 'Pagamento em andamento', texto: 'Há providências de pagamento ou liberação de valores em andamento.', prox: 'O escritório avisa quando houver confirmação.' },
-  { re: /acordao|julgamento .*recurso|recurso inominado|apelacao|embargos de declaracao/, fase: 'Fase de recurso', texto: 'O processo está em fase de recurso ou de julgamento de recurso.', prox: 'Aguardar o julgamento. O prazo depende da pauta do tribunal.' },
-  { re: /sentenca|julgad[oa] (procedente|improcedente)|procedencia|improcedencia|homologa(cao|da|do).*(acordo|transacao)/, fase: 'Sentença proferida', texto: 'O juiz proferiu a decisão de primeira instância.', prox: 'O escritório analisa e orienta sobre os efeitos e os próximos passos.' },
-  { re: /conclus[oa]s? (para|ao).*(julgamento|sentenca|decisao|despacho)/, fase: 'Aguardando decisão do juiz', texto: 'O processo está com o juiz para decisão.', prox: 'Aguardar. Não há providência necessária da sua parte.' },
-  { re: /audiencia.*(realizad|concluid)|realizada.*audiencia/, fase: 'Audiência realizada', texto: 'A audiência já foi realizada.', prox: 'Aguardar a decisão do juiz.' },
-  { re: /audiencia.*(designad|marcad|agendad)|designad[ao].*audiencia/, fase: 'Audiência marcada', texto: 'Há audiência marcada neste processo.', prox: 'O escritório combina os detalhes de data e comparecimento.' },
-  { re: /citacao|contestacao|intimacao.*(reu|parte)/, fase: 'Fase de manifestações', texto: 'A outra parte foi comunicada e o processo segue com as manifestações.', prox: 'Aguardar. O escritório acompanha os prazos.' },
-  { re: /distribuicao|ajuizamento|recebid[oa]/, fase: 'Processo iniciado', texto: 'O processo foi distribuído e está no início da tramitação.', prox: 'Aguardar os primeiros atos do juízo.' },
+  { re: /alvara|levantamento de (valor|deposito)|pagamento (efetuado|realizado)/, fase: 'Pagamento em andamento', texto: 'Há providências de pagamento ou liberação de valores em andamento.', prox: 'O escritório avisa quando houver confirmação.' },
+  { re: /^(procedencia|improcedencia|homologacao de decisao de juiz leigo|homologacao de (transacao|acordo)|extincao)/, fase: 'Sentença proferida', texto: 'Foi proferida a decisão de primeira instância.', prox: 'O escritório analisa e orienta sobre os efeitos e os próximos passos.' },
+  { re: /^(provimento|nao provimento|desprovimento|nao conhecimento de recurso|acordao)/, fase: 'Recurso julgado', texto: 'O recurso foi julgado pela instância superior.', prox: 'O escritório analisa e orienta sobre os próximos passos.' },
+  { re: /^conclusao.*(para julgamento|para sentenca)|^para julgamento de merito/, fase: 'Aguardando decisão do juiz', texto: 'O processo está com o juiz para decisão final.', prox: 'Aguardar. Não há providência necessária da sua parte.' },
+  { re: /^de (conciliacao|instrucao( e julgamento)?|mediacao|justificacao).*realizada/, fase: 'Audiência realizada', texto: 'A audiência já foi realizada.', prox: 'Aguardar a decisão do juiz.' },
+  { re: /^de (conciliacao|instrucao( e julgamento)?|mediacao|justificacao).*(designada|redesignada)/, fase: 'Audiência marcada', texto: 'Há audiência marcada neste processo.', prox: 'O escritório combina os detalhes de data e comparecimento.' },
+  { re: /^distribuicao/, fase: 'Processo iniciado', texto: 'O processo foi distribuído e está no início da tramitação.', prox: 'Aguardar os primeiros atos do juízo.' },
 ];
+const R_RECURSO = { fase: 'Fase de recurso', texto: 'O processo está em fase de recurso, na Turma Recursal ou no tribunal.', prox: 'Aguardar o julgamento. O prazo depende da pauta.' };
+const R_CUMPR = { fase: 'Cumprimento da decisão', texto: 'O processo está na fase de fazer valer o que foi decidido.', prox: 'Acompanhamento pelo escritório. Avisamos quando houver novidade relevante.' };
 const PADRAO = { fase: 'Em andamento', texto: 'O processo segue em tramitação normal, sem novidade relevante no momento.', prox: 'Não há providência necessária da sua parte.' };
 
 async function consultar(n) {
@@ -67,26 +69,29 @@ async function consultar(n) {
   const j = await r.json();
   const hits = (j.hits && j.hits.hits) || [];
   if (!hits.length) return { vazio: true };
-  const movs = hits.flatMap(h => (h._source.movimentos || []).map(m => ({ nome: m.nome, data: String(m.dataHora || '').slice(0, 10) })));
-  const classe = hits.map(h => norm(h._source.classe && h._source.classe.nome)).join(' ');
-  return { movs, classe };
+  return { hits: hits.map(h => h._source) };
 }
 
-function situacao({ movs, classe }) {
+function situacao({ hits }) {
   const eventos = [];
-  for (const m of movs) {
-    const nm = norm(m.nome);
-    const reg = REGRAS.find(r => r.re.test(nm));
-    if (reg && m.data) eventos.push({ reg, data: m.data });
+  for (const h of hits) {
+    const datas = (h.movimentos || []).map(m => String(m.dataHora || '').slice(0, 10)).filter(Boolean).sort();
+    for (const m of h.movimentos || []) {
+      const data = String(m.dataHora || '').slice(0, 10); if (!data) continue;
+      const nome = norm(m.nome), comp = (m.complementosTabelados || []).map(c => norm(c.nome)).join(' ');
+      if (RUIDO.test(nome)) continue;
+      const texto = (nome + ' ' + comp).trim();
+      const reg = REGRAS.find(r => r.re.test(nome) || r.re.test(texto));
+      if (reg) eventos.push({ reg, data });
+    }
+    // Turma Recursal / segundo grau e cumprimento de sentença aparecem como outro grau ou outra classe do mesmo número
+    if (h.grau === 'TR' || h.grau === 'G2') eventos.push({ reg: R_RECURSO, data: datas[0] || String(h.dataAjuizamento || '').slice(0, 10) });
+    if (/cumprimento/.test(norm(h.classe && h.classe.nome))) eventos.push({ reg: R_CUMPR, data: String(h.dataAjuizamento || '').slice(0, 10) || datas[0] });
   }
-  eventos.sort((a, b) => a.data.localeCompare(b.data));
-  let ult = eventos[eventos.length - 1];
-  // Trânsito em julgado encerra apenas a fase de conhecimento: o painel só encerra com baixa/arquivamento definitivo.
-  if (!ult) {
-    if (/cumprimento/.test(classe)) return { ...REGRAS.find(r => r.fase === 'Cumprimento da decisão'), data: null };
-    return { ...PADRAO, data: null };
-  }
-  return { ...ult.reg, data: ult.data };
+  eventos.sort((a, b) => String(a.data).localeCompare(String(b.data)));
+  // Trânsito em julgado encerra só a fase de conhecimento: o painel só encerra com baixa/arquivamento definitivo.
+  const ult = eventos[eventos.length - 1];
+  return ult ? { ...ult.reg, data: ult.data } : { ...PADRAO, data: null };
 }
 
 const lista = lerJson(LISTA, { itens: [] }).itens || [];
