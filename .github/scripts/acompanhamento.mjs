@@ -51,11 +51,17 @@ const PADRAO = { fase: 'Em andamento', texto: 'O processo segue em tramitação 
 async function consultar(n) {
   const ind = indice(n);
   if (!ind) return { erro: 'tribunal' };
-  const r = await fetch(`https://api-publica.datajud.cnj.jus.br/api_publica_${ind}/_search`, {
-    method: 'POST',
-    headers: { Authorization: 'APIKey ' + KEY, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ size: 10, query: { match: { numeroProcesso: n } } }),
-  });
+  // Tenta de novo com espera crescente quando a API limita o ritmo (429) ou oscila (5xx)
+  let r;
+  for (let t = 0; t < 5; t++) {
+    r = await fetch(`https://api-publica.datajud.cnj.jus.br/api_publica_${ind}/_search`, {
+      method: 'POST',
+      headers: { Authorization: 'APIKey ' + KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ size: 10, query: { match: { numeroProcesso: n } } }),
+    });
+    if (r.status !== 429 && r.status < 500) break;
+    await new Promise(ok => setTimeout(ok, 10000 * (t + 1)));
+  }
   if (r.status === 401 || r.status === 403) return { erro: 'chave' };
   if (!r.ok) return { erro: 'http ' + r.status };
   const j = await r.json();
