@@ -3,6 +3,8 @@
 //   h   = SHA-256 (hex) do código do link; o código em si nunca é gravado aqui
 //   n   = número do processo (só dígitos)
 //   ate = validade do link (AAAA-MM-DD)
+//   w   = quem aparece nos botões de WhatsApp: p (Paulo), h (Heloísa) ou a (os dois)
+//   m/md = recado opcional e sua data
 // Saída: a/d/<h>.json (dados mostrados na página a/index.html)
 // Regras de remoção: item fora da lista, vencido ou com processo encerrado (baixa/arquivamento definitivo, mais 30 dias).
 import fs from 'node:fs';
@@ -94,6 +96,46 @@ function situacao({ hits }) {
   return ult ? { ...ult.reg, data: ult.data } : { ...PADRAO, data: null };
 }
 
+// Linha do tempo: só marcos que o cliente entende, com texto simples (rotina fica de fora). Mais recentes primeiro.
+const TL = [
+  { re: /^distribuicao/, t: 'Processo distribuído' },
+  { re: /^citacao/, t: 'Parte contrária citada' },
+  { re: /^de (conciliacao|instrucao( e julgamento)?|mediacao|justificacao).*(designada|redesignada)/, t: 'Audiência marcada' },
+  { re: /^de (conciliacao|instrucao( e julgamento)?|mediacao|justificacao).*realizada/, t: 'Audiência realizada' },
+  { re: /^de (conciliacao|instrucao( e julgamento)?|mediacao|justificacao).*(cancelada|nao realizada)/, t: 'Audiência cancelada ou não realizada' },
+  { re: /^conclusao.*(para julgamento|para sentenca)|^para julgamento de merito/, t: 'Processo com o juiz para decisão final' },
+  { re: /^conclusao/, t: 'Processo com o juiz para decisão' },
+  { re: /^(concessao|deferimento).*(liminar|tutela)|^(antecipacao de tutela|tutela)/, t: 'Decisão sobre pedido de urgência' },
+  { re: /^(procedencia|improcedencia|homologacao de decisao de juiz leigo|homologacao de (transacao|acordo)|extincao)/, t: 'Sentença proferida' },
+  { re: /^(provimento|nao provimento|desprovimento|nao conhecimento de recurso|acordao)/, t: 'Recurso julgado' },
+  { re: /transito em julgado/, t: 'Decisão definitiva (não cabe mais recurso nesta fase)' },
+  { re: /alvara|levantamento de (valor|deposito)|pagamento (efetuado|realizado)/, t: 'Pagamento ou liberação de valores' },
+  { re: /^arquivamento/, t: 'Processo arquivado' },
+  { re: /baixa definitiva|^definitivo$/, t: 'Processo encerrado' },
+];
+function linhaDoTempo({ hits }) {
+  const ev = new Map();
+  const add = (d, t) => { if (d && /^\d{4}-\d{2}-\d{2}$/.test(d)) ev.set(d + '|' + t, { d, t }); };
+  let ult = null;
+  for (const h of hits) {
+    for (const m of h.movimentos || []) {
+      const data = String(m.dataHora || '').slice(0, 10); if (!data) continue;
+      if (!ult || data > ult) ult = data;                                // qualquer movimentação, inclusive de rotina
+      const nome = norm(m.nome), comp = (m.complementosTabelados || []).map(c => norm(c.nome)).join(' ');
+      if (RUIDO.test(nome)) continue;
+      const texto = (nome + ' ' + comp).trim();
+      const r = TL.find(x => x.re.test(nome) || x.re.test(texto));
+      if (r) add(data, (h.grau === 'TR' || h.grau === 'G2') && r.t === 'Processo distribuído' ? 'Recurso distribuído' : r.t);
+    }
+    const aj = String(h.dataAjuizamento || '').slice(0, 10);
+    if (h.grau === 'TR' || h.grau === 'G2') add(aj, 'Processo enviado para a fase de recurso');
+    else if (/cumprimento/.test(norm(h.classe && h.classe.nome))) add(aj, 'Início da fase de cumprimento da decisão');
+    else if (!hits.some(x => (x.movimentos || []).some(m => /^distribuicao/.test(norm(m.nome))))) add(aj, 'Processo iniciado');
+  }
+  const linha = [...ev.values()].sort((a, b) => b.d.localeCompare(a.d) || a.t.localeCompare(b.t)).slice(0, 15);
+  return { linha, ult };
+}
+
 const lista = lerJson(LISTA, { itens: [] }).itens || [];
 const tomb = new Set(lerJson(TOMB, { encerrados: [] }).encerrados || []);
 fs.mkdirSync(OUT, { recursive: true });
@@ -117,13 +159,15 @@ for (const it of lista) {
     dados = antigo || { fase: 'Consulta indisponível', texto: 'O andamento deste processo não está disponível para consulta online.', prox: 'Fale com o escritório para obter informações.', data: null };
   } else {
     const s = situacao(res);
-    dados = { fase: s.fase, texto: s.texto, prox: s.prox, data: s.data };
+    const tl = linhaDoTempo(res);
+    dados = { fase: s.fase, texto: s.texto, prox: s.prox, data: s.data, ult: tl.ult, linha: tl.linha };
     if (s.fim) dados.encerradoEm = (antigo && antigo.encerradoEm) || HOJE;
   }
   if (dados.encerradoEm && diasEntre(dados.encerradoEm, HOJE) > DIAS_APOS_FIM) { tomb.add(it.h); continue; }
   if (it.m && typeof it.m === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(it.md || '') && !(dados.data && dados.data > it.md)) dados.recado = { texto: it.m.slice(0, 300), data: it.md };
   else delete dados.recado;
   dados.ate = it.ate || null;
+  dados.adv = ['p', 'h', 'a'].includes(it.w) ? it.w : 'p';
   gravar(f, dados);
   vivos.add(it.h);
 }
