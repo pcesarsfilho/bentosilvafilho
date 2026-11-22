@@ -36,19 +36,19 @@ function indice(n) {
 // A mais recente que casar define a situação. Rotina (juntadas, expedições, publicações etc.) é ignorada.
 const RUIDO = /^(publicacao|disponibilizacao|expedicao|expedida|expedido|documento|peticao|mero expediente|ato ordinatorio|decurso|confirmada|em secretaria|mandado|juntada|remessa|processo devolvido|defensor|recebimento)/;
 const REGRAS = [
-  { re: /baixa definitiva|^definitivo$/, fim: true, fase: 'Processo encerrado', texto: 'O processo foi encerrado e arquivado.', prox: 'Nenhuma providência pendente por aqui.' },
-  { re: /transito em julgado/, fase: 'Decisão definitiva', texto: 'Não cabe mais recurso da decisão proferida nesta fase do processo.', prox: 'Se houver próxima etapa, como o cumprimento da decisão, o escritório informa.' },
-  { re: /alvara|levantamento de (valor|deposito)|pagamento (efetuado|realizado)/, fase: 'Pagamento em andamento', texto: 'Há providências de pagamento ou liberação de valores em andamento.', prox: 'O escritório avisa quando houver confirmação.' },
-  { re: /^(procedencia|improcedencia|homologacao de decisao de juiz leigo|homologacao de (transacao|acordo)|extincao)/, fase: 'Sentença proferida', texto: 'Foi proferida a decisão de primeira instância.', prox: 'O escritório analisa e orienta sobre os efeitos e os próximos passos.' },
-  { re: /^(provimento|nao provimento|desprovimento|nao conhecimento de recurso|acordao)/, fase: 'Recurso julgado', texto: 'O recurso foi julgado pela instância superior.', prox: 'O escritório analisa e orienta sobre os próximos passos.' },
-  { re: /^conclusao.*(para julgamento|para sentenca)|^para julgamento de merito/, fase: 'Aguardando decisão do juiz', texto: 'O processo está com o juiz para decisão final.', prox: 'Aguardar. Não há providência necessária da sua parte.' },
+  { re: /baixa definitiva|^definitivo$/, fim: true, fase: 'Processo encerrado', texto: 'O processo foi encerrado e arquivado.', prox: 'Em caso de dúvida, consulte o advogado.' },
+  { re: /transito em julgado/, fase: 'Decisão definitiva', texto: 'Não cabe mais recurso da decisão proferida nesta fase do processo.', prox: 'Eventuais próximas etapas, como o cumprimento da decisão, devem ser tratadas com o advogado.' },
+  { re: /alvara|levantamento de (valor|deposito)|pagamento (efetuado|realizado)/, fase: 'Pagamento em andamento', texto: 'Há providências de pagamento ou liberação de valores em andamento.', prox: 'Consulte o advogado para detalhes sobre valores e prazos.' },
+  { re: /^(procedencia|improcedencia|homologacao de decisao de juiz leigo|homologacao de (transacao|acordo)|extincao)/, fase: 'Sentença proferida', texto: 'Foi proferida a decisão de primeira instância.', prox: 'Converse com o advogado sobre os efeitos da decisão e os próximos passos.' },
+  { re: /^(provimento|nao provimento|desprovimento|nao conhecimento de recurso|acordao)/, fase: 'Recurso julgado', texto: 'O recurso foi julgado pela instância superior.', prox: 'Converse com o advogado sobre os efeitos da decisão e os próximos passos.' },
+  { re: /^conclusao.*(para julgamento|para sentenca)|^para julgamento de merito/, fase: 'Aguardando decisão do juiz', texto: 'O processo está com o juiz para decisão final.', prox: 'Aguardar a decisão do juiz.' },
   { re: /^de (conciliacao|instrucao( e julgamento)?|mediacao|justificacao).*realizada/, fase: 'Audiência realizada', texto: 'A audiência já foi realizada.', prox: 'Aguardar a decisão do juiz.' },
-  { re: /^de (conciliacao|instrucao( e julgamento)?|mediacao|justificacao).*(designada|redesignada)/, fase: 'Audiência marcada', texto: 'Há audiência marcada neste processo.', prox: 'O escritório combina os detalhes de data e comparecimento.' },
+  { re: /^de (conciliacao|instrucao( e julgamento)?|mediacao|justificacao).*(designada|redesignada)/, fase: 'Audiência marcada', texto: 'Há audiência marcada neste processo.', prox: 'Consulte o advogado sobre data, horário e comparecimento.' },
   { re: /^distribuicao/, fase: 'Processo iniciado', texto: 'O processo foi distribuído e está no início da tramitação.', prox: 'Aguardar os primeiros atos do juízo.' },
 ];
 const R_RECURSO = { fase: 'Fase de recurso', texto: 'O processo está em fase de recurso, na Turma Recursal ou no tribunal.', prox: 'Aguardar o julgamento. O prazo depende da pauta.' };
-const R_CUMPR = { fase: 'Cumprimento da decisão', texto: 'O processo está na fase de fazer valer o que foi decidido.', prox: 'Acompanhamento pelo escritório. Avisamos quando houver novidade relevante.' };
-const PADRAO = { fase: 'Em andamento', texto: 'O processo segue em tramitação normal, sem novidade relevante no momento.', prox: 'Não há providência necessária da sua parte.' };
+const R_CUMPR = { fase: 'Cumprimento da decisão', texto: 'O processo está na fase de fazer valer o que foi decidido.', prox: 'Consulte o advogado sobre os próximos passos.' };
+const PADRAO = { fase: 'Em andamento', texto: 'O processo segue em tramitação normal, sem novidade relevante no momento.', prox: 'Em caso de dúvida, consulte o advogado.' };
 
 async function consultar(n) {
   const ind = indice(n);
@@ -121,6 +121,8 @@ for (const it of lista) {
     if (s.fim) dados.encerradoEm = (antigo && antigo.encerradoEm) || HOJE;
   }
   if (dados.encerradoEm && diasEntre(dados.encerradoEm, HOJE) > DIAS_APOS_FIM) { tomb.add(it.h); continue; }
+  if (it.m && typeof it.m === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(it.md || '') && !(dados.data && dados.data > it.md)) dados.recado = { texto: it.m.slice(0, 300), data: it.md };
+  else delete dados.recado;
   dados.ate = it.ate || null;
   gravar(f, dados);
   vivos.add(it.h);

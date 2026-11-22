@@ -24,9 +24,10 @@ main{max-width:560px;margin:0 auto;padding:28px 0 40px}
 .bloco{border-top:1px solid var(--line);padding-top:14px;margin-top:6px}
 .bloco p:last-child{margin-bottom:0}
 .nota{font-size:.82rem;color:#6b6556;margin:18px 2px 0}
+.rec{border-top-color:var(--navy);margin-bottom:14px;background:var(--cream)}
 .btn{display:inline-block;margin-top:18px;background:var(--navy);color:var(--cream);text-decoration:none;padding:11px 18px;border-radius:4px;font-weight:600;font-size:.9rem}
 .btn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
-@media (prefers-color-scheme:dark){:root{--paper:#101827;--text:#d8d3c6;--line:#2c3850;--navy:#0A1426;--gold-ink:#C9A55A;--cream:#F3EBDD}.card{background:#16203a}.fase{color:var(--cream)}.nota{color:#9a9485}}
+@media (prefers-color-scheme:dark){:root{--paper:#101827;--text:#d8d3c6;--line:#2c3850;--navy:#0A1426;--gold-ink:#C9A55A;--cream:#F3EBDD}.card{background:#16203a}.rec{background:#1d2a47}.fase{color:var(--cream)}.nota{color:#9a9485}}
 </style>
 </head>
 <body>
@@ -40,19 +41,20 @@ main{max-width:560px;margin:0 auto;padding:28px 0 40px}
   function br(d){var p=String(d||'').split('-');return p.length===3?p[2]+'/'+p[1]+'/'+p[0]:''}
   function nada(t,x){m.innerHTML='<div class="card"><p class="rot">Acompanhamento</p><h2 class="fase">'+esc(t)+'</h2><p>'+esc(x)+'</p><a class="btn" href="'+WA+'" rel="noopener">Falar com o escritório</a></div>'}
   var code=location.hash.slice(1);
-  if(!/^[A-Za-z0-9]{16,64}$/.test(code)||!window.crypto||!crypto.subtle){nada('Link indisponível','Este endereço não está ativo. Fale com o escritório para receber um novo link, se for o caso.');return}
+  if(!/^[A-Za-z0-9]{16,64}$/.test(code)||!window.crypto||!crypto.subtle){nada('Link indisponível','Este endereço não está ativo. Fale com o advogado para receber um novo link, se for o caso.');return}
   crypto.subtle.digest('SHA-256',new TextEncoder().encode(code)).then(function(b){
     var h=Array.prototype.map.call(new Uint8Array(b),function(x){return('0'+x.toString(16)).slice(-2)}).join('');
     return fetch('d/'+h+'.json',{cache:'no-store'});
   }).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){
     if(d.ate&&d.ate<new Date().toISOString().slice(0,10))throw 0;
     var enc=d.encerradoEm?'<p class="rot" style="margin-top:14px">Encerrado em '+esc(br(d.encerradoEm))+'. Este painel será desativado em breve.</p>':'';
-    m.innerHTML='<div class="card"><p class="rot">Situação atual</p><h2 class="fase">'+esc(d.fase)+'</h2><p>'+esc(d.texto)+'</p>'+
-      (d.data?'<p class="rot" style="margin-top:4px">Última atualização relevante: '+esc(br(d.data))+'</p>':'')+
+    var rec=d.recado&&d.recado.texto?'<div class="card rec"><p class="rot">Recado do escritório'+(d.recado.data?' · '+esc(br(d.recado.data)):'')+'</p><p>'+esc(d.recado.texto)+'</p></div>':'';
+    m.innerHTML=rec+'<div class="card"><p class="rot">Situação segundo o DataJud</p><h2 class="fase">'+esc(d.fase)+'</h2><p>'+esc(d.texto)+'</p>'+
+      (d.data?'<p class="rot" style="margin-top:4px">Última movimentação considerada: '+esc(br(d.data))+'</p>':'')+
       '<div class="bloco"><p class="rot">Próximo passo</p><p>'+esc(d.prox)+'</p></div>'+enc+'</div>'+
-      '<p class="nota">Este painel mostra apenas as principais etapas. Movimentações de rotina, como juntadas e expedições, não alteram o resultado e não são exibidas. O escritório avisa quando houver algo que exija sua atenção.</p>'+
-      '<a class="btn" href="'+WA+'" rel="noopener">Falar com o escritório</a>';
-  }).catch(function(){nada('Link indisponível','Este acompanhamento não está ativo ou foi encerrado. Fale com o escritório se precisar de informações.')});
+      '<p class="nota"><b>Aviso.</b> Este painel segue as informações públicas do DataJud, base de dados do Conselho Nacional de Justiça, que podem levar dias para refletir os atos do processo e podem conter inconsistências. O advogado não se responsabiliza por eventual desatualização ou inconsistência dessas informações. Movimentações de rotina não são exibidas. Qualquer dúvida deve ser esclarecida diretamente com o advogado.</p>'+
+      '<a class="btn" href="'+WA+'" rel="noopener">Falar com o advogado</a>';
+  }).catch(function(){nada('Link indisponível','Este acompanhamento não está ativo ou foi encerrado. Fale com o advogado se precisar de informações.')});
 })();
 </script>
 </body>
