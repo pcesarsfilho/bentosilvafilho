@@ -1,7 +1,11 @@
 {
  "fase": "Audiência marcada",
  "texto": "Há audiência marcada neste processo.",
- "prox": "O escritório combina os detalhes de data e comparecimento.",
+ "prox": "Consulte o advogado sobre data, horário e comparecimento.",
  "data": "2026-10-09",
+ "recado": {
+  "texto": "Teste do recado: audiência realizada em 18/11; aguardando a sentença.",
+  "data": "2026-11-21"
+ },
  "ate": "2027-11-21"
 }
