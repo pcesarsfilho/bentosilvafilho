@@ -132,7 +132,10 @@ function linhaDoTempo({ hits }) {
     else if (/cumprimento/.test(norm(h.classe && h.classe.nome))) add(aj, 'Início da fase de cumprimento da decisão');
     else if (!hits.some(x => (x.movimentos || []).some(m => /^distribuicao/.test(norm(m.nome))))) add(aj, 'Processo iniciado');
   }
-  const linha = [...ev.values()].sort((a, b) => b.d.localeCompare(a.d) || a.t.localeCompare(b.t)).slice(0, 15);
+  // Marcos iguais em sequência (ex.: várias conclusões ao juiz) viram um só, com a data mais recente
+  const asc = [...ev.values()].sort((a, b) => a.d.localeCompare(b.d) || a.t.localeCompare(b.t)), seq = [];
+  for (const e of asc) { if (seq.length && seq[seq.length - 1].t === e.t) seq[seq.length - 1] = e; else seq.push(e); }
+  const linha = seq.reverse().slice(0, 15);
   return { linha, ult };
 }
 
