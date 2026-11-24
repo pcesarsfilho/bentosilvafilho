@@ -1,12 +1,77 @@
 {
   "media": 5.0,
-  "total": 38,
+  "total": 40,
   "url": "https://www.google.com/maps?cid=887300740575950939",
-  "atualizado": "2026-11-13",
+  "atualizado": "2026-11-24",
   "avaliacoes": [
     {
-      "nome": "Junior C.",
-      "texto": "Profissionais competentes, recomendo.",
+      "nome": "Lennyn P.",
+      "texto": "recomendo dms, profissionais atenciosos e com muita experiência",
+      "nota": 5
+    },
+    {
+      "nome": "Sarah M.",
+      "texto": "Dra Heloísa extremamente profissional e ética. Excelente advogada, me deu total apoio! Recomendo a todos.",
+      "nota": 5
+    },
+    {
+      "nome": "Teresinha C.",
+      "texto": "Excelente! Os advogados foram extremamente prestativos e eficientes, tanto no atendimento como na condução do processo. Recomendo.",
+      "nota": 5
+    },
+    {
+      "nome": "Mayra K.",
+      "texto": "Excelentes profissionais!!",
+      "nota": 5
+    },
+    {
+      "nome": "Vitoria B.",
+      "texto": "Profissionais competentes.super recomendo!",
+      "nota": 5
+    },
+    {
+      "nome": "Ana Paula O.",
+      "texto": "Profissionais extremamente competentes e atenciosos! Recomendo o trabalho deles!",
+      "nota": 5
+    },
+    {
+      "nome": "Nilva L.",
+      "texto": "Exemplar.",
+      "nota": 5
+    },
+    {
+      "nome": "Lucia A.",
+      "texto": "Fui prontamente atendida com excelência na atenção e no profissionalismo.",
+      "nota": 5
+    },
+    {
+      "nome": "Nina K.",
+      "texto": "Me atenderam super bem, e foram super resolutivos! Indico!",
+      "nota": 5
+    },
+    {
+      "nome": "Juliana C.",
+      "texto": "Excelente atendimento, agilidade e confiança no trabalho realizado. Obrigada!",
+      "nota": 5
+    },
+    {
+      "nome": "Isabela N.",
+      "texto": "Profissionais maravilhosos.",
+      "nota": 5
+    },
+    {
+      "nome": "Weliton J.",
+      "texto": "Maravilhosa.",
+      "nota": 5
+    },
+    {
+      "nome": "Izadora J.",
+      "texto": "Confio demais, profissionais competentes e empáticos!",
+      "nota": 5
+    },
+    {
+      "nome": "Ana Paula D.",
+      "texto": "Excelente escritório de advocacia, com profissionais extremamente qualificados e competentes!",
       "nota": 5
     },
     {
@@ -15,13 +80,18 @@
       "nota": 5
     },
     {
-      "nome": "Júlia A.",
-      "texto": "Atendimento excelente, profissionais éticos e muito competentes. Recomendo!",
+      "nome": "Stéfanie M.",
+      "texto": "Profissionais excelentes e muito competentes! Indico!",
       "nota": 5
     },
     {
-      "nome": "Maria Luisa O.",
-      "texto": "Super recomendo, advogado Paulo César é um profissional sério, comprometido e dedicado à promoção do direito e da justiça.",
+      "nome": "Laura A.",
+      "texto": "Escritório com profissionais que estão capacitados para resolver todos os problemas! Indico sempre",
+      "nota": 5
+    },
+    {
+      "nome": "Junior C.",
+      "texto": "Profissionais competentes, recomendo.",
       "nota": 5
     },
     {
@@ -30,13 +100,23 @@
       "nota": 5
     },
     {
-      "nome": "Luís Felipe S.",
-      "texto": "Dr. Paulo é um profissional muito competente e determinado. Recomendo sem sombra de dúvidas.",
+      "nome": "Maria Luisa O.",
+      "texto": "Super recomendo, advogado Paulo César é um profissional sério, comprometido e dedicado à promoção do direito e da justiça.",
+      "nota": 5
+    },
+    {
+      "nome": "Júlia A.",
+      "texto": "Atendimento excelente, profissionais éticos e muito competentes. Recomendo!",
       "nota": 5
     },
     {
       "nome": "Lari S.",
       "texto": "Profissionais de altíssima qualidade.",
+      "nota": 5
+    },
+    {
+      "nome": "Luís Felipe S.",
+      "texto": "Dr. Paulo é um profissional muito competente e determinado. Recomendo sem sombra de dúvidas.",
       "nota": 5
     }
   ]
