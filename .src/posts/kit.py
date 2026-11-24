@@ -14,7 +14,7 @@ def b64(p,m): return f'data:{m};base64,'+base64.b64encode(open(p,'rb').read()).d
 MONOD=b64(os.path.join(HERE,'assets','mono-escuro.svg'),'image/svg+xml')
 MONOC=b64(os.path.join(HERE,'assets','mono-claro.svg'),'image/svg+xml')
 MONO=b64(os.path.join(HERE,'assets','mono-principal.svg'),'image/svg+xml')
-FOTO={k:b64(os.path.join(ROOT,'img',k+'.jpg'),'image/jpeg') for k in ('paulo','heloisa','dupla')}
+FOTO={k:b64(os.path.join(ROOT,'img',k+'.jpg'),'image/jpeg') for k in ('paulo','heloisa','dupla','escritorio-1','escritorio-2','escritorio-3')}
 N,G,C='#0A1326','#C5A063','#F4F0E5'
 def big(icon,size,color,sw=1.2):
     return IC[icon].replace('<svg ',f'<svg style="width:{size}px;height:{size}px;color:{color}" ').replace('stroke-width="1.8"',f'stroke-width="{sw}"')
@@ -90,8 +90,8 @@ def conheca_bio(nome,oab,form,atua,l1='FORMAÇÃO',l2='ATUAÇÃO'):
 <div class=eb style='font-size:19px;margin-top:46px'>{l2}</div>
 <div class=p style='font-size:30px;color:#3B4256;margin-top:16px'>{atua}</div></div>{foot(False)}"""
     return page(W,H,C,b,N)
-def conheca_fim(frase,assin):
-    b=f"""<div class=fr></div><div class=cnt style='color:{G}'>3/3</div>
+def conheca_fim(frase,assin,n=3,tot=3):
+    b=f"""<div class=fr></div><div class=cnt style='color:{G}'>{n}/{tot}</div>
 <div style='position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 120px;margin-top:-60px'>
 <div style='font-family:Cr;font-size:220px;line-height:.6;color:{G};height:90px'>“</div>
 <div class=t style='font-size:66px;color:{C};font-style:italic;font-weight:400'>{frase}</div>
@@ -108,3 +108,13 @@ def capa_reels(eb,titulo,lei,adv,icon,dark):
 <div style='width:110px;height:2px;background:{G};margin:46px 0 26px'></div>
 <div style='display:flex;justify-content:space-between;font-family:Po;font-size:22px;letter-spacing:.06em'><span style='color:{G}'>{lei}</span><span style='letter-spacing:.2em;color:{'#C9CCD6' if dark else '#5B6274'}'>{adv}</span></div></div>"""
     return page(1080,1920,bg,b,fg)
+
+def foto_area(n,tot,foto,eb,titulo,texto,pos='center 25%',swipe=False):
+    b=f"""<img src='{foto}' style='position:absolute;left:0;top:0;width:100%;height:940px;object-fit:cover;object-position:{pos}'>
+<div style='position:absolute;left:0;right:0;top:620px;height:330px;background:linear-gradient(180deg,rgba(10,19,38,0),{N})'></div>
+<div class=fr></div><div class=cnt style='color:{G};text-shadow:0 1px 6px rgba(0,0,0,.5)'>{n}/{tot}</div>
+<div style='position:absolute;left:96px;right:96px;top:905px'><div class=eb style='font-size:20px;letter-spacing:.34em'>{eb}</div>
+<div class=t style='font-size:82px;margin-top:22px;color:{C}'>{titulo}</div>
+<div class=p style='font-size:31px;margin-top:24px;color:#C9CCD6'>{texto}</div></div>
+{"<div class=sw>ARRASTE &nbsp;→</div>" if swipe else foot(True)}"""
+    return page(W,H,N,b,C)

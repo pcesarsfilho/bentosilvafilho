@@ -8,6 +8,7 @@ Tipos de slide (os campos de texto aceitam <em>...</em> para destaque dourado):
   conheca_capa: {"tipo":"conheca_capa","foto":"paulo|heloisa|dupla","nome":"..."}
   conheca_bio:  {"tipo":"conheca_bio","nome":"...","oab":"...","form":"...","atua":"..."}
   conheca_fim:  {"tipo":"conheca_fim","frase":"...","assin":"..."}
+  foto_area:    {"tipo":"foto_area","foto":"paulo|heloisa|dupla|escritorio-1|escritorio-2|escritorio-3","eb":"...","titulo":"...","texto":"...","pos":"center 25%","swipe":false}
   capa_reels:   {"tipo":"capa_reels","eb":"DIREITO EM 60 SEGUNDOS","titulo":"...","lei":"...","adv":"DR. PAULO CÉSAR SILVA FILHO","icon":"relogio","dark":true}
 Numeração n/tot é automática. Ícones: ver LEIAME.md.
 """
@@ -25,7 +26,8 @@ for i,s in enumerate(S,1):
     elif t=='final': h=kit.final(i,T,s['titulo'],s['texto'])
     elif t=='conheca_capa': h=kit.conheca_capa(kit.FOTO[s['foto']],s['nome'],s.get('eb','CONHEÇA'))
     elif t=='conheca_bio': h=kit.conheca_bio(s['nome'],s['oab'],s['form'],s['atua'],s.get('l1','FORMAÇÃO'),s.get('l2','ATUAÇÃO'))
-    elif t=='conheca_fim': h=kit.conheca_fim(s['frase'],s['assin'])
+    elif t=='conheca_fim': h=kit.conheca_fim(s['frase'],s['assin'],i,T)
+    elif t=='foto_area': h=kit.foto_area(i,T,kit.FOTO[s['foto']],s['eb'],s['titulo'],s['texto'],s.get('pos','center 25%'),s.get('swipe',False))
     elif t=='capa_reels': h=kit.capa_reels(s['eb'],s['titulo'],s['lei'],s['adv'],s.get('icon','balanca'),s.get('dark',True))
     else: raise SystemExit('tipo desconhecido: '+t)
     f=os.path.join(out,f"{spec['nome']} - {i:02d}.html"); open(f,'w').write(h); files.append(f)
