@@ -80,14 +80,14 @@ def conheca_capa(foto,nome,eb='CONHEÇA'):
 <div style='position:absolute;left:96px;right:96px;bottom:150px'><div class=eb>{eb}</div>
 <div class=t style='font-size:96px;margin-top:22px;color:{C}'>{nome}</div></div><div class=sw>ARRASTE &nbsp;→</div>"""
     return page(W,H,N,b,C)
-def conheca_bio(nome,oab,form,atua):
+def conheca_bio(nome,oab,form,atua,l1='FORMAÇÃO',l2='ATUAÇÃO'):
     b=f"""<div class=fr></div><div class=cnt style='color:{G}'>2/3</div>
 <div style='position:absolute;left:96px;right:96px;top:150px'>
 <div class=eb>{oab}</div><div class=t style='font-size:76px;margin-top:22px;color:{N}'>{nome}</div>
 <div style='height:2px;width:110px;background:{G};margin:46px 0'></div>
-<div class=eb style='font-size:19px'>FORMAÇÃO</div>
+<div class=eb style='font-size:19px'>{l1}</div>
 <div class=p style='font-size:30px;color:#3B4256;margin-top:16px'>{form}</div>
-<div class=eb style='font-size:19px;margin-top:46px'>ATUAÇÃO</div>
+<div class=eb style='font-size:19px;margin-top:46px'>{l2}</div>
 <div class=p style='font-size:30px;color:#3B4256;margin-top:16px'>{atua}</div></div>{foot(False)}"""
     return page(W,H,C,b,N)
 def conheca_fim(frase,assin):
