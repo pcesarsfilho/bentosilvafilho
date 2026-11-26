@@ -1,7 +1,7 @@
 """Gera HTML e PNG a partir de um spec JSON.
 spec = {"nome": "Carrossel X", "slides": [ {...}, ... ]}
 Tipos de slide (os campos de texto aceitam <em>...</em> para destaque dourado):
-  capa:   {"tipo":"capa","eb":"DIREITO DO DIA A DIA","titulo":"...","sub":"...","icon":"balanca","swipe":true}
+  capa:   {"tipo":"capa","dark":true (false = capa clara, creme),"eb":"DIREITO DO DIA A DIA","titulo":"...","sub":"...","icon":"balanca","swipe":true}
   miolo:  {"tipo":"miolo","num":"01","titulo":"...","texto":"...","lei":"CDC, ART. 49","icon":"doc","dark":false,
            "chips":["a","b"]  ou  "duas":[["Título A","texto A"],["Título B","texto B"]] (opcionais)}
   final:  {"tipo":"final","titulo":"Salve para <em>quando precisar</em>","texto":"..."}
@@ -19,7 +19,7 @@ spec=json.load(open(sys.argv[1])); out=os.path.abspath(sys.argv[2]); os.makedirs
 S=spec['slides']; T=len(S); files=[]
 for i,s in enumerate(S,1):
     t=s['tipo']
-    if t=='capa': h=kit.capa(i,T,s['eb'],s['titulo'],s.get('sub',''),s.get('icon','balanca'),s.get('swipe',T>1))
+    if t=='capa': h=kit.capa(i,T,s['eb'],s['titulo'],s.get('sub',''),s.get('icon','balanca'),s.get('swipe',T>1),s.get('dark',True))
     elif t=='miolo':
         ex=kit.chips(s['chips'],s.get('dark',False)) if s.get('chips') else (kit.duas(tuple(s['duas'][0]),tuple(s['duas'][1]),s.get('dark',False)) if s.get('duas') else '')
         h=kit.miolo(i,T,s.get('num',f'{i-1:02d}'),s['titulo'],s['texto'],s.get('lei',''),s.get('icon','doc'),s.get('dark',False),ex)

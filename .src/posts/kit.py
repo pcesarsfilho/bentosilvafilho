@@ -37,16 +37,16 @@ def page(w,h,bg,body,fg):
 def foot(dark):
     return f"<div class=ft><i></i><b>@bentosilvafilhoadv</b><s style='color:{'#B9BCC6' if dark else '#5B6274'}'>POÇOS DE CALDAS · MG</s></div>"
 W,H=1080,1440
-def capa(n,tot,eb,titulo,sub,icon,swipe=True):
+def capa(n,tot,eb,titulo,sub,icon,swipe=True,dark=True):
+    bg,fg,mut,mono,ic=(N,C,'#C9CCD6',MONOD,C) if dark else (C,N,'#3B4256',MONOC,N)
     b=f"""<div class=fr></div><div class=cnt style='color:{G}'>{n}/{tot}</div>
-<img src='{MONOD}' style='position:absolute;left:96px;top:96px;width:120px'>
-<div style='position:absolute;right:-120px;top:330px;opacity:.07'>{big(icon,760,C,.7)}</div>
+<img src='{mono}' style='position:absolute;left:96px;top:96px;width:120px'>
+<div style='position:absolute;right:-120px;top:330px;opacity:.07'>{big(icon,760,ic,.7)}</div>
 <div style='position:absolute;left:96px;right:96px;top:420px'><div class=eb>{eb}</div>
-<div class=t style='font-size:104px;margin-top:34px;color:{C}'>{titulo}</div>
-<div class=p style='font-size:31px;margin-top:40px;color:#C9CCD6;max-width:800px'>{sub}</div></div>
-{"<div class=sw>ARRASTE &nbsp;→</div>" if swipe else ""}
-<img src='{MONOD}' style='position:absolute;left:96px;bottom:84px;width:0'>"""
-    return page(W,H,N,b,C)
+<div class=t style='font-size:104px;margin-top:34px;color:{fg}'>{titulo}</div>
+<div class=p style='font-size:31px;margin-top:40px;color:{mut};max-width:800px'>{sub}</div></div>
+{"<div class=sw>ARRASTE &nbsp;→</div>" if swipe else ""}"""
+    return page(W,H,bg,b,fg)
 def miolo(n,tot,num,titulo,texto,lei,icon,dark,extra=''):
     bg,fg,mut=(N,C,'#C9CCD6') if dark else (C,N,'#3B4256')
     b=f"""<div class=fr></div><div class=cnt style='color:{G}'>{n}/{tot}</div>
