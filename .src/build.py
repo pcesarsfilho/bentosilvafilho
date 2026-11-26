@@ -94,7 +94,7 @@ def page(title, desc, url, body, prefix='', extra_head=''):
 {body}
 </main>
 <footer class="site-footer"><div class="wrap">
-<p>Bento &amp; Silva Filho Advogados · Poços de Caldas-MG · OAB/MG 22.728</p>
+<p>Bento &amp; Silva Filho Advogados · Poços de Caldas-MG · Paulo César Silva Filho, OAB/MG 210.883 · Heloísa G. Bento Ferreira, OAB/MG 225.014 e OAB/SP 463.498</p>
 <p><a href="{prefix}index.html">Site</a> · <a href="{LINKEDIN}" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://www.instagram.com/bentosilvafilhoadv/" target="_blank" rel="noopener">Instagram</a></p>
 </div></footer>
 </body>
