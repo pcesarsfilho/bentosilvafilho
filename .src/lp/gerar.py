@@ -57,10 +57,9 @@ def page(p):
 <meta property="og:url" content="{url}"><meta property="og:image" content="{BASE}img/og.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Montserrat:wght@400;500;600;700&display=swap">
-<!-- Google Ads / Analytics: troque GTAG_ID pelo ID (AW-XXXX ou G-XXXX) e apague as duas linhas de comentário. Cada clique no WhatsApp dispara o evento "clique_whatsapp" (use como conversão).
-<script async src="https://www.googletagmanager.com/gtag/js?id=GTAG_ID"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag('js',new Date());gtag('config','GTAG_ID');</script>
--->
+<!-- Google Analytics / Google Ads: quando tiver o ID (G-XXXX ou AW-XXXX), troque GTAG_ID abaixo. A medição só carrega depois que o visitante aceitar os cookies (cookies.js). -->
+<script>window.BSF_GTAG='GTAG_ID';</script>
+<script src="../cookies.js" defer></script>
 <script type="application/ld+json">{json.dumps({"@context":"https://schema.org","@type":"LegalService","name":"Bento & Silva Filho Advogados","url":url,"image":BASE+"img/og.jpg","telephone":"+"+p['wa'],"address":{"@type":"PostalAddress","streetAddress":"Av. Dr. David Benedito Ottoni, 645, sala 02, Jardim dos Estados","addressLocality":"Poços de Caldas","addressRegion":"MG","postalCode":"37701-069","addressCountry":"BR"},"areaServed":[{"@type":"City","name":"Poços de Caldas"},{"@type":"State","name":"Minas Gerais"},{"@type":"State","name":"São Paulo"},{"@type":"Country","name":"Brasil"}],"description":p['desc']},ensure_ascii=False)}</script>
 <style>{CSS}</style>
 </head>

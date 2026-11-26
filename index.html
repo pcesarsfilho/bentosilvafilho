@@ -49,10 +49,9 @@
   "sameAs": ["https://www.instagram.com/bentosilvafilhoadv/", "https://www.facebook.com/bentosilvafilhoadv", "https://www.linkedin.com/company/bentosilvafilhoadv/"]
 }
 </script>
-<!-- Google Analytics / Google Ads: quando tiver o ID (G-XXXX ou AW-XXXX), troque GTAG_ID abaixo e apague as duas linhas de comentário.
-<script async src="https://www.googletagmanager.com/gtag/js?id=GTAG_ID"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','GTAG_ID');</script>
--->
+<!-- Google Analytics / Google Ads: quando tiver o ID (G-XXXX ou AW-XXXX), troque GTAG_ID abaixo. A medição só carrega depois que o visitante aceitar os cookies (cookies.js). -->
+<script>window.BSF_GTAG='GTAG_ID';</script>
+<script src="cookies.js" defer></script>
 <style>
 /* Paleta e tipografia da marca Bento & Silva Filho */
 :root{
@@ -228,10 +227,48 @@ section{scroll-margin-top:72px}
 
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 .rv-n{display:block;font-size:11px;letter-spacing:.06em;opacity:.8;margin-top:2px;white-space:nowrap}
+
+/* Contador do carrossel no celular (evita que os pontos passem da largura da tela) */
+.rv-count{display:none;font-size:.85rem;letter-spacing:.12em;color:var(--gold);min-width:64px;text-align:center}
+@media (max-width:640px){.rv-dots{display:none}.rv-count{display:block}.rv-card{min-height:0}}
+.rv-dots{flex-wrap:wrap;justify-content:center;max-width:100%}
+.rv-ctrl{max-width:100%}
+/* Movimento sóbrio: só com JavaScript ativo e sem preferência por movimento reduzido */
+.progress{position:fixed;top:0;left:0;right:0;height:2px;background:var(--gold);transform-origin:0 50%;transform:scaleX(0);z-index:70;pointer-events:none}
+.site-header{transition:box-shadow .35s ease,background .35s ease}
+.site-header.scrolled{box-shadow:0 10px 28px rgba(0,0,0,.28)}
+.anim .rv{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1),letter-spacing 1.2s ease;transition-delay:var(--d,0s)}
+.anim .rv.in{opacity:1;transform:none}
+.anim .eyebrow.rv{letter-spacing:.55em}
+.anim .eyebrow.rv.in{letter-spacing:.32em}
+.anim .hero .mono{animation:monoIn 1.4s cubic-bezier(.2,.7,.2,1) both,monoFloat 7s ease-in-out 1.4s infinite alternate}
+@keyframes monoIn{from{opacity:0;transform:scale(.92) rotate(-6deg)}to{opacity:1;transform:none}}
+@keyframes monoFloat{from{transform:translateY(0)}to{transform:translateY(-10px)}}
+.area{position:relative}
+.area::before{content:"";position:absolute;left:0;top:-2px;height:2px;width:0;background:var(--navy);transition:width .6s cubic-bezier(.2,.7,.2,1)}
+.area:hover::before{width:100%}
+.area h3{transition:color .3s}
+.area:hover h3{color:var(--gold-ink)}
+.gallery img,.person img,.office img{transition:transform .6s cubic-bezier(.2,.7,.2,1),box-shadow .6s}
+.gallery img:hover,.person img:hover,.office img:hover{transform:translateY(-6px);box-shadow:0 22px 40px rgba(14,27,51,.22)}
+.btn{position:relative;overflow:hidden}
+.btn-gold::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-18deg);transition:left .7s ease}
+.btn-gold:hover::after{left:130%}
+.rv-card{transition:transform .4s ease,box-shadow .4s ease}
+.rv-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,.35)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.skip{position:absolute;left:-9999px;top:8px;z-index:90;background:var(--gold);color:var(--navy);padding:10px 16px;font-weight:600}
+.skip:focus{left:12px}
+.site-footer .legal{flex-basis:100%;font-size:.74rem;color:#8E887B}
+@media (prefers-reduced-motion:reduce){.anim .rv{opacity:1;transform:none}.progress{display:none}}
+.anim .gallery img.in:hover,.anim .person.in img:hover,.anim .office > img.in:hover{transform:translateY(-6px)}
+.anim .rv-viewport.in .rv-card:hover{transform:translateY(-4px)}
 </style>
 </head>
 <body>
 
+<a class="skip" href="#escritorio">Pular para o conteúdo</a>
+<div class="progress" id="progress" aria-hidden="true"></div>
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="#inicio" aria-label="Bento & Silva Filho Advogados, início">
@@ -327,7 +364,7 @@ section{scroll-margin-top:72px}
     </div></div>
     <div class="rv-ctrl">
       <button class="rv-arrow" id="rv-prev" aria-label="Depoimentos anteriores">‹</button>
-      <div class="rv-dots" id="rv-dots"></div>
+      <div class="rv-dots" id="rv-dots"></div><span class="rv-count" id="rv-count" aria-live="polite"></span>
       <button class="rv-arrow" id="rv-next" aria-label="Próximos depoimentos">›</button>
     </div>
     <p class="rv-note">Avaliações de 5 estrelas publicadas por clientes no perfil do escritório no Google, com o primeiro nome e a inicial do sobrenome. <a href="https://www.google.com/maps?cid=887300740575950939" target="_blank" rel="noopener">Ver todas no Google</a></p>
@@ -409,8 +446,9 @@ section{scroll-margin-top:72px}
 <footer class="site-footer">
   <div class="wrap">
     <p>Bento &amp; Silva Filho Advogados · Av. Dr. David Benedito Ottoni, 645, sala 02 · Jardim dos Estados · Poços de Caldas-MG</p>
-    <p><a href="politica-de-privacidade.html">Política de privacidade</a> · <a href="https://www.instagram.com/bentosilvafilhoadv/" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.facebook.com/bentosilvafilhoadv" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.linkedin.com/company/bentosilvafilhoadv/" target="_blank" rel="noopener">LinkedIn</a> · <a href="artigos.html">Artigos e notícias</a></p>
+    <p><a href="politica-de-privacidade.html">Política de privacidade</a> · <a href="politica-de-privacidade.html#cookies" data-cookies>Cookies</a> · <a href="https://www.instagram.com/bentosilvafilhoadv/" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.facebook.com/bentosilvafilhoadv" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.linkedin.com/company/bentosilvafilhoadv/" target="_blank" rel="noopener">LinkedIn</a> · <a href="artigos.html">Artigos e notícias</a></p>
     <p class="guides">Orientações: <a href="voo-cancelado-atrasado/">Voo cancelado ou atrasado</a> · <a href="nome-negativado/">Nome negativado</a> · <a href="compra-de-imovel/">Compra de imóvel</a> · <a href="direitos-trabalhistas/">Direitos trabalhistas</a> · <a href="inventario/">Inventário</a> · <a href="holding-familiar/">Holding familiar</a> · <a href="acidente-de-transito/">Acidente de trânsito</a> · <a href="golpe-bancario/">Golpe e fraude bancária</a> · <a href="direito-de-familia/">Divórcio, guarda e pensão</a></p>
+    <p class="legal">Paulo César Silva Filho, OAB/MG 210.883, e Heloísa G. Bento Ferreira, OAB/MG 225.014 e OAB/SP 463.498. Paulo Cesar Filho Sociedade Individual de Advocacia, OAB/MG 22.728, CNPJ 66.440.951/0001-90. Conteúdo de caráter informativo, nos termos do Código de Ética e Disciplina da OAB e do Provimento nº 205/2021.</p>
   </div>
 </footer>
 
@@ -438,7 +476,7 @@ section{scroll-margin-top:72px}
   function perView(){return window.innerWidth<=640?1:(window.innerWidth<=980?2:3);}
   function pages(){return Math.max(1,track.children.length-perView()+1);}
   function buildDots(){dots.innerHTML='';for(var i=0;i<pages();i++){(function(i){var b=document.createElement('button');b.setAttribute('aria-label','Ir para o depoimento '+(i+1));b.addEventListener('click',function(){go(i);restart();});dots.appendChild(b);})(i);}}
-  function go(i){var n=pages();pos=(i+n)%n;var c=track.children[0];var step=c?c.getBoundingClientRect().width+24:0;track.style.transform='translateX('+(-pos*step)+'px)';[].forEach.call(dots.children,function(d,k){d.setAttribute('aria-current',k===pos?'true':'false');});}
+  function go(i){var n=pages();pos=(i+n)%n;var c=track.children[0];var step=c?c.getBoundingClientRect().width+24:0;track.style.transform='translateX('+(-pos*step)+'px)';[].forEach.call(dots.children,function(d,k){d.setAttribute('aria-current',k===pos?'true':'false');});var rc=document.getElementById('rv-count');if(rc)rc.textContent=(pos+1)+' / '+n;}
   function restart(){clearInterval(timer);if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)timer=setInterval(function(){go(pos+1);},4000);}
   document.getElementById('rv-prev').addEventListener('click',function(){go(pos-1);restart();});
   document.getElementById('rv-next').addEventListener('click',function(){go(pos+1);restart();});
@@ -460,6 +498,24 @@ section{scroll-margin-top:72px}
     if(!a.length){document.getElementById('artigos').style.display='none';return;}
     el.innerHTML=a.map(function(x){var p=x.data.split('-');return '<a class="post" href="artigos/'+x.slug+'.html">'+(x.capa?'<img src="'+x.capa+'" alt="" loading="lazy">':'')+'<div class="meta">'+(x.tipo==='noticia'?'Notícia · ':'')+(+p[2])+' de '+M[+p[1]-1]+' de '+p[0]+'</div><h3>'+esc(x.titulo)+'</h3><p>'+esc(x.resumo)+'</p></a>';}).join('');
   }).catch(function(){document.getElementById('artigos').style.display='none';});
+})();
+</script>
+
+<script>
+/* Animações sóbrias: revelação ao rolar, barra de progresso e cabeçalho */
+(function(){
+  var rm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hd=document.querySelector('.site-header'),pg=document.getElementById('progress'),tk=false;
+  function onScroll(){tk=false;var y=window.scrollY||0,h=document.documentElement.scrollHeight-innerHeight;if(hd)hd.classList.toggle('scrolled',y>10);if(pg&&!rm)pg.style.transform='scaleX('+(h>0?Math.min(1,y/h):0)+')';}
+  window.addEventListener('scroll',function(){if(!tk){tk=true;requestAnimationFrame(onScroll);}},{passive:true});onScroll();
+  if(rm||!('IntersectionObserver' in window))return;
+  document.documentElement.classList.add('anim');
+  var sel=['.hero .stack > *','.section .eyebrow','.section h2','.office .text p','.office > img','.gallery img','.grid-areas .area','.rv-head .rv-badge','.rv-viewport','.cta-band .wrap > *','.grid-team .person','#posts','.contact .info > div','.contact .btns'];
+  var els=document.querySelectorAll(sel.join(','));
+  els.forEach(function(el){el.classList.add('rv');var p=el.parentElement,k=[].indexOf.call(p.children,el);el.style.setProperty('--d',Math.min(k,6)*0.09+'s');});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -8% 0px',threshold:0.08});
+  els.forEach(function(el){io.observe(el);});
+  setTimeout(function(){document.querySelectorAll('.hero .rv').forEach(function(el){el.classList.add('in');});},60);
 })();
 </script>
 </body>
